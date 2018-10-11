@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
 import MapComponent from './components/MapComponent'
+import { Button } from 'semantic-ui-react'
 
 
 class App extends Component {
@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Button onClick={ this.handleButtonClick } >THIS IS A BUTTON</Button>
+        <Button primary onClick={this.handleButtonClick}>This is a button</Button>
         <MapComponent />
       </div>
     );
