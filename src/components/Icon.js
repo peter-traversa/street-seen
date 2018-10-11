@@ -1,6 +1,6 @@
-import Leaflet from 'leaflet';
+import { Icon } from 'leaflet';
 
-const iconSprayPaint = new Leaflet.Icon({
+const iconSprayPaint = new Icon({
   iconUrl: require('../images/Spray_paint.svg'),
   iconRetinaUrl: require('../images/Spray_paint.svg'),
   iconSize: [25, 40],

@@ -1,12 +1,17 @@
 import React from 'react';
 import { Popup } from 'react-leaflet';
+import { Button, Icon } from 'semantic-ui-react'
 
-export default class CustomPopup extends React.Component {
-  render() {
-    return (
-      <Popup>
-        <h3>This is a popup!</h3>
-      </Popup>
-    )
-  }
+const handleFileUpload = (e) => {
+  console.log(e)
 }
+
+const CustomPopup = () => {
+  return (
+    <Popup>
+      <Button onClick={handleFileUpload} >Upload Pic</Button>
+    </Popup>
+  )
+}
+
+export default CustomPopup;

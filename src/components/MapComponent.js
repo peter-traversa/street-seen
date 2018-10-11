@@ -27,12 +27,17 @@ export default class MapComponent extends Component {
     this.setState({ currentZoomLevel: newZoomLevel });
   }
 
+  addNewMarker = (e) => {
+    console.log(e.latlng.lat, e.latlng.lng)
+  }
+
   render() {
     return (
       <Map
         ref={m => { this.leafletMap = m; }}
         center={mapCenter}
         zoom={zoomLevel}
+        onClick={ this.addNewMarker }
       >
         <TileLayer
             attribution={stamenTonerAttr}
