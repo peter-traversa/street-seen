@@ -4,9 +4,6 @@ import MapComponent from './components/MapComponent'
 
 
 class App extends Component {
-  constructor(props){
-    super(props)
-  }
 
   handleButtonClick = () => {
     console.log('main button was clicked')
@@ -15,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Button onClick={ this.handleButtonClick } >A Button!</Button>
+        <Button onClick={ this.handleButtonClick } >THIS IS A BUTTON</Button>
         <MapComponent />
       </div>
     );
