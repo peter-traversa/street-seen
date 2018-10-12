@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
-import Markers from './NewMarkers'
+// import ExistingMarkers from './ExistingMarkers';
+import { iconSprayPaint } from './Icon.js';
+import { Marker, Popup } from 'react-leaflet';
+import ExistingArtPopup from './ExistingArtPopup.js';
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
 const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
@@ -54,7 +57,13 @@ export default class MapComponent extends Component {
             attribution={stamenTonerAttr}
             url={stamenTonerTiles}
         />
-        <Markers />
+        {this.state.allArtworks.map((artwork) => 
+          <Marker position={[artwork.latitude, artwork.longitude]} icon={iconSprayPaint} >
+          <Popup>
+            <ExistingArtPopup img_url={artwork.img_url} nickname={artwork.nickname}/>
+          </Popup>
+        </Marker>
+        )}
       </Map>
     );
   }
