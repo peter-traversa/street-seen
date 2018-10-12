@@ -14,7 +14,7 @@ export default class NewArtPopup extends Component {
   }
   
   handleFileUpload = (event) => {
-    this.setState({selectedFile: event.target.files[0]},()=>console.log(this.state.selectedFile))
+    this.setState({selectedFile: event.target.files[0]})
   }
 
   handleFormSubmit = (event) => {

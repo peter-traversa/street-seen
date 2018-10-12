@@ -10,4 +10,5 @@ const iconSprayPaint = new Icon({
   popupAnchor: [-10, -20],
 });
 
+
 export { iconSprayPaint };

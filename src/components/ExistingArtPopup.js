@@ -4,7 +4,7 @@ const ExistingArtPopup = (props) => {
   return(
     <div>
       <h3>{props.nickname}</h3>
-      <img src={props.img_url} alt={props.nickname} height='50' width='100' />
+      <img src={props.img_url} alt={props.nickname} width='200' />
     </div>
   )
 }
