@@ -4,9 +4,17 @@ import { Button } from 'semantic-ui-react'
 
 
 class App extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      allMarkers: []
+    }
+  }
 
   handleButtonClick = () => {
-    console.log('main button was clicked')
+    console.log('main button was clicked');
+    console.log(this.state)
   }
 
   render() {

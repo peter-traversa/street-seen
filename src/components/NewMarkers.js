@@ -5,7 +5,7 @@ import NewArtPopup from './NewArtPopup.js';
 
 const position = [40.780059, -73.951443];
 
-export default class Markers extends Component {
+export default class NewMarkers extends Component {
   render() {
     return (
       <Marker 

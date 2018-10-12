@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
-import Markers from './Markers'
+import Markers from './NewMarkers'
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
 const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
@@ -12,7 +12,14 @@ export default class MapComponent extends Component {
     super(props);
     this.state = {
       currentZoomLevel: zoomLevel,
+      allArtworks:[],
     };
+  }
+
+  mountAndFetch = () => {
+    fetch('http://localhost:3000/artworks')
+    .then(r => r.json())
+    .then(data => this.setState({allArtworks: data}))
   }
 
   componentDidMount() {
@@ -21,6 +28,7 @@ export default class MapComponent extends Component {
       const updatedZoomLevel = leafletMap.getZoom();
       this.handleZoomLevelChange(updatedZoomLevel);
     });
+    this.mountAndFetch();
   }
 
   handleZoomLevelChange = (newZoomLevel) => {
@@ -28,7 +36,10 @@ export default class MapComponent extends Component {
   }
 
   addNewMarker = (e) => {
-    console.log(e.latlng.lat, e.latlng.lng)
+    const clickLatitude = e.latlng.lat;
+    const clickLongitude = e.latlng.lng;
+    console.log(clickLatitude, clickLongitude)
+    console.log(this.state.allArtworks)
   }
 
   render() {
