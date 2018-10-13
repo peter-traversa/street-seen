@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-// import Leaflet from 'leaflet';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { iconExistingArt, iconNewArt } from './Icon.js';
 import ExistingArtPopup from './ExistingArtPopup';
-// import NewMarker from './NewMarker'
 import NewArtPopup from './NewArtPopup.js';
+import { connect } from 'react-redux';
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
 const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
@@ -12,15 +11,13 @@ const mapCenter = [40.780059, -73.951443];
 const zoomLevel = 11;
 
 
-export default class MapComponent extends Component {
+class MapComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentZoomLevel: zoomLevel,
       allArtworks:[],
       showMap: true,
-      newArtwork: false,
-      newMarkerPosition: null,
     };
   }
 
@@ -53,13 +50,13 @@ export default class MapComponent extends Component {
         ref={m => { this.leafletMap = m; }}
         center={mapCenter}
         zoom={zoomLevel}
-        onClick={ this.addNewMarker }
+        onClick={ this.props.addNewMarker }
       >
         <TileLayer
             attribution={stamenTonerAttr}
             url={stamenTonerTiles}
         />
-        {this.state.newArtwork ? <Marker position={this.state.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
+        {this.props.newArtwork ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
         {this.state.allArtworks.map((artwork, idx) => 
           <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >
           <Popup>
@@ -71,3 +68,22 @@ export default class MapComponent extends Component {
     );
   }
 }
+
+function mapStateToProps(state){
+  return {
+    allArtworks: state.allArtworks,
+    showMap: state.showMap,
+    newArtwork: state.newArtwork,
+    newMarkerPosition: state.newMarkerPosition,
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    addNewMarker: (e) => {
+      dispatch({type: 'ADD_NEW_MARKER', payload: e})
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapComponent);

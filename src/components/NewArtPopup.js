@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Popup } from 'react-leaflet';
-import { Form } from 'semantic-ui-react'
-import Dropzone from 'react-dropzone'
+import { Form } from 'semantic-ui-react';
+import Dropzone from 'react-dropzone';
+import { connect } from 'react-redux';
 
-
-export default class NewArtPopup extends Component {
+class NewArtPopup extends Component {
   constructor() {
     super()
     this.state = {
@@ -34,10 +34,20 @@ export default class NewArtPopup extends Component {
           <p>Drag and drop your pictures here or click to select files.</p>
         </Dropzone>
         {this.state.selectedFile ? <p>${this.state.selectedFile.name}</p> : <p></p>}
-        <Form onSubmit={this.handleFormSubmit}>
+        <Form onSubmit={this.props.handleFormSubmit}>
           <Form.Input type='text' label='Artwork Nickname' value={this.state.nickname} onChange={this.handleInputChange} />
         </Form>
       </Popup>
     )
   }
 }
+
+function mapDispatchToProps(dispatch){
+  return {
+    handleFormSubmit: (event) => {
+      dispatch({type: 'SUBMIT_NEW_ARTWORK', payload: event})
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(NewArtPopup)
