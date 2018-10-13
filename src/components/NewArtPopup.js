@@ -20,18 +20,18 @@ export default class NewArtPopup extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
     console.log(this.state)
-    this.setState({nickname: ''})
+    this.setState({nickname: '', selectedFile: null})
   }
 
   handleInputChange = (event) => {
-    this.setState({nickname: event.target.value}, ()=>console.log(this.state.nickname))
+    this.setState({nickname: event.target.value})
   }
 
   render() {
     return (
       <Popup>
         <Dropzone onChange={this.handleFileUpload}>
-          <p>Drag and drop your pictures here or click to select.</p>
+          <p>Drag and drop your pictures here or click to select files.</p>
         </Dropzone>
         {this.state.selectedFile ? <p>${this.state.selectedFile.name}</p> : <p></p>}
         <Form onSubmit={this.handleFormSubmit}>
