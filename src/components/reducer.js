@@ -9,7 +9,8 @@ const defaultState = {
 const SUBMIT_NEW_ARTWORK = 'SUBMIT_NEW_ARTWORK';
 const ADD_NEW_MARKER = 'ADD_NEW_MARKER';
 const CHANGE_USER_ID = 'CHANGE_USER_ID';
-const FETCH_ALL_ARTWORKS = 'FETCH_ALL_ARTWORKS'
+const FETCH_ALL_ARTWORKS = 'FETCH_ALL_ARTWORKS';
+const VIEW_DETAIL_PAGE = 'VIEW_DETAIL_PAGE';
 
 function reducer(state=defaultState, action){
   switch(action.type){
@@ -21,6 +22,8 @@ function reducer(state=defaultState, action){
       return { ...state, newArtwork: false }
     case CHANGE_USER_ID:
       return { ...state, userId: action.payload}
+    case VIEW_DETAIL_PAGE:
+      return { ... state, showMap: false}
     default:
       return state;
   }

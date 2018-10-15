@@ -16,7 +16,6 @@ class MapComponent extends Component {
     super(props);
     this.state = {
       currentZoomLevel: zoomLevel,
-      showMap: true,
     };
   }
 
@@ -70,7 +69,7 @@ function mapStateToProps(state){
     showMap: state.showMap,
     newArtwork: state.newArtwork,
     newMarkerPosition: state.newMarkerPosition,
-    userId: state.userId
+    userId: state.userId,
   }
 }
 
