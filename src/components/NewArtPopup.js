@@ -10,6 +10,7 @@ class NewArtPopup extends Component {
     this.state = {
       selectedFile: null,
       nickname: '',
+      img_url: '',
     }
   }
   
@@ -18,13 +19,16 @@ class NewArtPopup extends Component {
   }
 
   handleFormSubmit = (event) => {
-    event.preventDefault();
-    console.log(this.state)
-    this.setState({nickname: '', selectedFile: null})
+    console.log(event);
+    console.log(this.state.nickname, this.state.img_url);
+    this.setState({nickname: '', img_url: '', selectedFile: null})
   }
 
   handleInputChange = (event) => {
     this.setState({nickname: event.target.value})
+  }
+  handleUrlChange = (event) => {
+    this.setState({img_url: event.target.value})
   }
 
   render() {
@@ -34,20 +38,28 @@ class NewArtPopup extends Component {
           <p>Drag and drop your pictures here or click to select files.</p>
         </Dropzone>
         {this.state.selectedFile ? <p>${this.state.selectedFile.name}</p> : <p></p>}
-        <Form onSubmit={this.props.handleFormSubmit}>
+        <Form onSubmit={this.handleFormSubmit}>
           <Form.Input type='text' label='Artwork Nickname' value={this.state.nickname} onChange={this.handleInputChange} />
+          <Form.Input type='text' label='Artwork url' value={this.state.img_url} onChange={this.handleUrlChange} />
+          <Form.Button content='Submit' />
         </Form>
       </Popup>
     )
   }
 }
 
-function mapDispatchToProps(dispatch){
+function mapStateToProps(state) {
   return {
-    handleFormSubmit: (event) => {
-      dispatch({type: 'SUBMIT_NEW_ARTWORK', payload: event})
-    }
+    newMarkerPosition: state.newMarkerPosition,
   }
 }
 
-export default connect(null, mapDispatchToProps)(NewArtPopup)
+// function mapDispatchToProps(dispatch){
+//   return {
+//     handleFormSubmit: (event) => {
+//       dispatch({type: 'SUBMIT_NEW_ARTWORK', payload: event})
+//     }
+//   }
+// }
+
+export default connect(mapStateToProps)(NewArtPopup)

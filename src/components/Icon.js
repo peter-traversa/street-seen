@@ -1,22 +1,22 @@
 import { Icon } from 'leaflet';
 
 const iconExistingArt = new Icon({
-  iconUrl: require('../images/Spray_paint.svg'),
-  iconRetinaUrl: require('../images/Spray_paint.svg'),
-  iconSize: [25, 40],
+  iconUrl: require('../images/paint-spray.png'),
+  iconRetinaUrl: require('../images/paint-spray.png'),
+  iconSize: [40, 40],
   shadowSize: [null, null],
   iconAnchor: [20, 20],
   shadowAnchor: [null, null],
-  popupAnchor: [-10, -20],
+  popupAnchor: [0, -15],
 });
 const iconNewArt = new Icon({
-  iconUrl: require('../images/Spray_paint.svg'),
-  iconRetinaUrl: require('../images/Spray_paint.svg'),
-  iconSize: [25, 40],
+  iconUrl: require('../images/NewArtMarker.png'),
+  iconRetinaUrl: require('../images/NewArtMarker.png'),
+  iconSize: [200, 200],
   shadowSize: [null, null],
   iconAnchor: [20, 20],
   shadowAnchor: [null, null],
-  popupAnchor: [-10, -20],
+  popupAnchor: [0, -15],
 });
 
 
