@@ -16,7 +16,6 @@ class MapComponent extends Component {
     super(props);
     this.state = {
       currentZoomLevel: zoomLevel,
-      allArtworks:[],
       showMap: true,
     };
   }
@@ -24,7 +23,7 @@ class MapComponent extends Component {
   mountAndFetch = () => {
     fetch('http://localhost:3000/artworks')
     .then(r => r.json())
-    .then(data => this.setState({allArtworks: data}))
+    .then(data => this.props.globalStateArtworks(data))
   }
 
   componentDidMount() {
@@ -53,7 +52,7 @@ class MapComponent extends Component {
             url={stamenTonerTiles}
         />
         {this.props.newArtwork && this.props.userId ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
-        {this.state.allArtworks.map((artwork, idx) => 
+        {this.props.allArtworks.map((artwork, idx) => 
           <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >
           <Popup>
             <ExistingArtPopup img_url={artwork.img_url} nickname={artwork.nickname}/>
@@ -79,6 +78,9 @@ function mapDispatchToProps(dispatch){
   return {
     addNewMarker: (e) => {
       dispatch({type: 'ADD_NEW_MARKER', payload: e})
+    },
+    globalStateArtworks: (data) => {
+      dispatch({type: 'FETCH_ALL_ARTWORKS', payload: data})
     }
   }
 }

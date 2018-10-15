@@ -9,9 +9,12 @@ const defaultState = {
 const SUBMIT_NEW_ARTWORK = 'SUBMIT_NEW_ARTWORK';
 const ADD_NEW_MARKER = 'ADD_NEW_MARKER';
 const CHANGE_USER_ID = 'CHANGE_USER_ID';
+const FETCH_ALL_ARTWORKS = 'FETCH_ALL_ARTWORKS'
 
 function reducer(state=defaultState, action){
   switch(action.type){
+    case FETCH_ALL_ARTWORKS:
+      return {...state, allArtworks: action.payload}
     case ADD_NEW_MARKER:
       return { ...state, newMarkerPosition: [action.payload.latlng.lat, action.payload.latlng.lng], newArtwork: true };
     case SUBMIT_NEW_ARTWORK:
