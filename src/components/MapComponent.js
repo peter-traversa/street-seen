@@ -40,10 +40,6 @@ class MapComponent extends Component {
     this.setState({ currentZoomLevel: newZoomLevel });
   };
 
-  addNewMarker = (e) => {
-    this.setState({ newMarkerPosition: [e.latlng.lat, e.latlng.lng], newArtwork: true });
-  };
-
   render() {
     return (
       <Map
@@ -56,7 +52,7 @@ class MapComponent extends Component {
             attribution={stamenTonerAttr}
             url={stamenTonerTiles}
         />
-        {this.props.newArtwork ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
+        {this.props.newArtwork && this.props.userId ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
         {this.state.allArtworks.map((artwork, idx) => 
           <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >
           <Popup>
@@ -75,6 +71,7 @@ function mapStateToProps(state){
     showMap: state.showMap,
     newArtwork: state.newArtwork,
     newMarkerPosition: state.newMarkerPosition,
+    userId: state.userId
   }
 }
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import MapComponent from './components/MapComponent'
-
-
+import ModalExampleCloseIcon from './components/LoginModal'
 class App extends Component {
   constructor() {
     super()
@@ -15,6 +14,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <ModalExampleCloseIcon />
         <MapComponent />
       </div>
     );
