@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MapComponent from './components/MapComponent';
-import ModalExampleCloseIcon from './components/LoginModal';
+import LoginModal from './components/LoginModal';
 import DetailPage from './containers/DetailPage';
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <ModalExampleCloseIcon />
+        <LoginModal />
         {this.props.showMap ? <MapComponent /> : <DetailPage />}
       </div>
     );

@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
 const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-const mapCenter = [40.780059, -73.951443];
-const zoomLevel = 11;
+const mapCenter = [0, 0];
+const zoomLevel = 2;
 
 
 class MapComponent extends Component {
@@ -50,7 +50,7 @@ class MapComponent extends Component {
             attribution={stamenTonerAttr}
             url={stamenTonerTiles}
         />
-        {this.props.newArtwork && this.props.userId ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
+        {(this.props.newArtwork && this.props.userId) ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
         {this.props.allArtworks.map((artwork, idx) => 
           <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >
           <Popup>

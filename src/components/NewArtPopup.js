@@ -17,7 +17,6 @@ class NewArtPopup extends Component {
   }
   
   handleFileUpload = (event) => {
-    debugger
     const config = {
       bucketName: 'street-seen',
       region: 'us-east-2',
@@ -41,8 +40,8 @@ class NewArtPopup extends Component {
         latitude: this.props.newMarkerPosition[0], 
         longitude: this.props.newMarkerPosition[1], 
         img_url: this.state.img_url})
-    }).then(res => console.log(res))
-    .then(res => (this.setState({nickname: '', img_url: '', selectedFile: null})))
+    }).then(res => (this.props.submitNewArtwork(event)))
+      .then(res => (this.setState({nickname: '', img_url: '', selectedFile: null})))
   }
   
   handleInputChange = (event) => {
@@ -73,12 +72,12 @@ function mapStateToProps(state) {
   }
 }
 
-// function mapDispatchToProps(dispatch){
-//   return {
-//     handleFormSubmit: (event) => {
-//       dispatch({type: 'SUBMIT_NEW_ARTWORK', payload: event})
-//     }
-//   }
-// }
+function mapDispatchToProps(dispatch){
+  return {
+    submitNewArtwork: () => {
+      dispatch({type: 'SUBMIT_NEW_ARTWORK', payload: null})
+    }
+  }
+}
 
-export default connect(mapStateToProps)(NewArtPopup)
+export default connect(mapStateToProps, mapDispatchToProps)(NewArtPopup)
