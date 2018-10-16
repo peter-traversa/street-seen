@@ -50,11 +50,11 @@ class MapComponent extends Component {
             attribution={stamenTonerAttr}
             url={stamenTonerTiles}
         />
-        {(this.props.newArtwork && this.props.userId) ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
+        {this.props.newArtwork && this.props.userId ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
         {this.props.allArtworks.map((artwork, idx) => 
           <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >
           <Popup>
-            <ExistingArtPopup img_url={artwork.img_url} nickname={artwork.nickname}/>
+            <ExistingArtPopup artwork={artwork} />
           </Popup>
         </Marker>
         )}

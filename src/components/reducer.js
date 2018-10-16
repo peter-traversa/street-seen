@@ -26,7 +26,7 @@ function reducer(state=defaultState, action){
     case CHANGE_USER_ID:
       return { ...state, userId: action.payload }
     case VIEW_DETAIL_PAGE:
-      return { ...state, showMap: false }
+      return { ...state, showMap: false, selectedArtwork: action.payload }
     case CLOSE_DETAIL_PAGE:
       return { ...state, showMap: true }
     case CHANGE_SELECTED_ARTWORK:

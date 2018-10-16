@@ -4,15 +4,16 @@ import { Button } from 'semantic-ui-react'
 
 class DetailPage extends Component {
   render() {
-    console.log(this.props.selectedArtwork)
     return (
       <React.Fragment>
         <Button 
           onClick={this.props.closeDetailPage}
           content='Close Detail Page'
           color='red'
+          floated='right'
         />
-        <h1>This is a detail page</h1>
+        <h1 align='center' >{this.props.selectedArtwork.nickname}</h1>
+        <img src={`${this.props.selectedArtwork.img_url}`} alt='artwork' width='100%' ></img>
       </React.Fragment>
     )
   }
