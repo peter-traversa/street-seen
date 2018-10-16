@@ -7,44 +7,31 @@ import { connect } from 'react-redux';
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
 const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-const mapCenter = [0, 0];
-const zoomLevel = 2;
+// const mapCenter = [0, 0];
 
 
 class MapComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentZoomLevel: zoomLevel,
     };
   }
 
-  mountAndFetch = () => {
+  componentDidMount() {
     fetch('http://localhost:3000/artworks')
     .then(r => r.json())
     .then(data => this.props.globalStateArtworks(data))
   }
 
-  componentDidMount() {
-    const leafletMap = this.leafletMap.leafletElement;
-    leafletMap.on('zoomend', () => {
-      const updatedZoomLevel = leafletMap.getZoom();
-      this.handleZoomLevelChange(updatedZoomLevel);
-    });
-    this.mountAndFetch();
-  }
-
-  handleZoomLevelChange = (newZoomLevel) => {
-    this.setState({ currentZoomLevel: newZoomLevel });
-  };
-
   render() {
+    console.log(this.props)
     return (
       <Map
         ref={m => { this.leafletMap = m; }}
-        center={mapCenter}
-        zoom={zoomLevel}
-        onClick={ this.props.addNewMarker }
+        center={this.props.mapCenter}
+        zoom={this.props.zoomLevel}
+        onClick={this.props.addNewMarker}
+        onZoom={this.props.changeZoomLevel}
       >
         <TileLayer
             attribution={stamenTonerAttr}
@@ -70,6 +57,8 @@ function mapStateToProps(state){
     newArtwork: state.newArtwork,
     newMarkerPosition: state.newMarkerPosition,
     userId: state.userId,
+    zoomLevel: state.zoomLevel,
+    mapCenter: state.mapCenter,
   }
 }
 
@@ -80,6 +69,10 @@ function mapDispatchToProps(dispatch){
     },
     globalStateArtworks: (data) => {
       dispatch({type: 'FETCH_ALL_ARTWORKS', payload: data})
+    },
+    changeZoomLevel: (zoomLevel) => {
+      console.log('passed to redux - ', zoomLevel.target._zoom)
+      dispatch({type: 'ZOOM_LEVEL', payload: zoomLevel.target._zoom})
     }
   }
 }

@@ -14,6 +14,16 @@ class NewArtPopup extends Component {
       nickname: '',
       img_url: '',
     }
+    this._isMounted = false
+  }
+
+
+  componentDidMount() {
+    this._isMounted = true
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false 
   }
   
   handleFileUpload = (event) => {
@@ -28,6 +38,15 @@ class NewArtPopup extends Component {
   }
 
   handleFormSubmit = (event) => {
+    const newArtwork = {
+      nickname: this.state.nickname,
+      latitude: this.props.newMarkerPosition[0],
+      longitude: this.props.newMarkerPosition[1],
+      img_url: this.state.img_url,
+      user_id: this.props.userId,
+    }
+    this.props.addNewArtworkToMap(newArtwork);
+    console.log('form mounted')
     fetch('http://localhost:3000/artworks', {
       headers: {
         'Accept': 'application/json',
@@ -40,21 +59,22 @@ class NewArtPopup extends Component {
         latitude: this.props.newMarkerPosition[0], 
         longitude: this.props.newMarkerPosition[1], 
         img_url: this.state.img_url})
-    }).then(res => (this.props.submitNewArtwork(event)))
-      .then(res => (this.setState({nickname: '', img_url: '', selectedFile: null})))
+    }).then(res => (this.setState({nickname: '', img_url: '', selectedFile: null})))
+      .then(res => (this.props.submitNewArtwork()))
   }
   
   handleInputChange = (event) => {
     this.setState({nickname: event.target.value})
   }
+
   handleUrlChange = (event) => {
-    this.setState({img_url: event.target.value})
+    this.setState({nickname: event.target.value})
   }
   
   render() {
     return (
       <Popup>
-        <Dropzone onChange={this.handleFileUpload} ></Dropzone>
+        {this.state.selectedFile ? <p>{this.state.selectedFile.name}</p> : <Dropzone onChange={this.handleFileUpload} ></Dropzone>}
         <Form onSubmit={this.handleFormSubmit}>
           <Form.Input type='text' label='Artwork Nickname' value={this.state.nickname} onChange={this.handleInputChange} />
           <Form.Input type='text' label='Artwork url' value={this.state.img_url} onChange={this.handleUrlChange} />
@@ -76,7 +96,10 @@ function mapDispatchToProps(dispatch){
   return {
     submitNewArtwork: () => {
       dispatch({type: 'SUBMIT_NEW_ARTWORK', payload: null})
-    }
+    },
+    addNewArtworkToMap: (newArtwork) => {
+      dispatch({type: 'ADD_NEW_ARTWORK_TO_MAP', payload: newArtwork})
+    },
   }
 }
 

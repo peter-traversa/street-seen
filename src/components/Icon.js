@@ -12,7 +12,7 @@ const iconExistingArt = new Icon({
 const iconNewArt = new Icon({
   iconUrl: require('../images/NewArtMarker.png'),
   iconRetinaUrl: require('../images/NewArtMarker.png'),
-  iconSize: [200, 200],
+  iconSize: [125, 125],
   shadowSize: [null, null],
   iconAnchor: [20, 20],
   shadowAnchor: [null, null],

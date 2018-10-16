@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react'
+import { Button, Image } from 'semantic-ui-react'
 
 class DetailPage extends Component {
   render() {
     return (
       <React.Fragment>
+        <Button 
+          onClick={console.log('toggling sidebar')}
+          content='Toggle Sidebar'
+          color='red'
+          floated='left'
+          />
         <Button 
           onClick={this.props.closeDetailPage}
           content='Close Detail Page'
@@ -13,7 +19,8 @@ class DetailPage extends Component {
           floated='right'
         />
         <h1 align='center' >{this.props.selectedArtwork.nickname}</h1>
-        <img src={`${this.props.selectedArtwork.img_url}`} alt='artwork' width='100%' ></img>
+        <Image size='huge' centered id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
+        <h3 align='center' >Approximate Location - {this.props.selectedArtwork.latitude}, {this.props.selectedArtwork.longitude}</h3>
       </React.Fragment>
     )
   }
