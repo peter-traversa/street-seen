@@ -7,6 +7,7 @@ const defaultState = {
   selectedArtwork: null,
   mapCenter: [0, 0],
   zoomLevel: 2,
+  allTags: []
 };
 
 const SUBMIT_NEW_ARTWORK = 'SUBMIT_NEW_ARTWORK';
@@ -19,6 +20,7 @@ const CLOSE_DETAIL_PAGE = 'CLOSE_DETAIL_PAGE';
 const CHANGE_MAP_CENTER = 'CHANGE_MAP_CENTER';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
 const ADD_NEW_ARTWORK_TO_MAP = 'ADD_NEW_ARTWORK_TO_MAP';
+const FETCH_ALL_TAGS = 'FETCH_ALL_TAGS';
 
 function reducer(state=defaultState, action){
   switch(action.type){
@@ -42,6 +44,8 @@ function reducer(state=defaultState, action){
       return { ...state, zoomLevel: action.payload }
     case ADD_NEW_ARTWORK_TO_MAP:
       return { ...state, allArtworks: [...state.allArtworks, action.payload] }
+    case FETCH_ALL_TAGS:
+      return { ...state, allTags: action.payload }
     default:
       return state;
   }

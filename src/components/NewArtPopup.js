@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Popup } from 'react-leaflet';
-import { Form, Image } from 'semantic-ui-react';
+import { Form, Image, Grid } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { uploadFile } from 'react-s3';
@@ -28,6 +28,7 @@ class NewArtPopup extends Component {
   }
 
   handleFormSubmit = (event) => {
+    event.persist()
     const newArtwork = {
       nickname: this.state.nickname,
       latitude: this.props.newMarkerPosition[0],
@@ -66,7 +67,11 @@ class NewArtPopup extends Component {
         {this.state.selectedFile ? <Image src={this.state.img_url} size='small' /> : <Dropzone onChange={this.handleFileUpload} ><p>Try dropping a file here, or click to select files to upload.<br/>Choose one image file.</p></Dropzone>}
         <Form onSubmit={this.handleFormSubmit}>
           <Form.Input type='text' label='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
-          <Form.Button content='Submit' />
+          <p>Tags</p><br/>
+            <Grid columns={2}>
+              {this.props.allTags.map((tag, idx) => {return <Form.Checkbox key={idx} label={tag.name} />})}
+            </Grid><br/><br/>
+          <Form.Button color='red' inverted content='Submit' />
         </Form>
       </Popup>
     )
@@ -77,6 +82,7 @@ function mapStateToProps(state) {
   return {
     newMarkerPosition: state.newMarkerPosition,
     userId: state.userId,
+    allTags: state.allTags,
   }
 }
 

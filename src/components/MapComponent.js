@@ -16,6 +16,9 @@ class MapComponent extends Component {
     fetch('http://localhost:3000/artworks')
     .then(r => r.json())
     .then(data => this.props.globalStateArtworks(data))
+    fetch('http://localhost:3000/tags')
+    .then(r => r.json())
+    .then(data => this.props.globalStateTags(data))
   }
 
   render() {
@@ -62,6 +65,9 @@ function mapDispatchToProps(dispatch){
     },
     globalStateArtworks: (data) => {
       dispatch({type: 'FETCH_ALL_ARTWORKS', payload: data})
+    },
+    globalStateTags: (data) => {
+      dispatch({type: 'FETCH_ALL_TAGS', payload: data})
     },
     changeZoomLevel: (zoomLevel) => {
       dispatch({type: 'ZOOM_LEVEL', payload: zoomLevel.target._zoom})
