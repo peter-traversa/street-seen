@@ -71,7 +71,6 @@ function mapDispatchToProps(dispatch){
       dispatch({type: 'FETCH_ALL_ARTWORKS', payload: data})
     },
     changeZoomLevel: (zoomLevel) => {
-      console.log('passed to redux - ', zoomLevel.target._zoom)
       dispatch({type: 'ZOOM_LEVEL', payload: zoomLevel.target._zoom})
     }
   }

@@ -6,12 +6,12 @@ class DetailPage extends Component {
   render() {
     return (
       <React.Fragment>
-        <Button 
+        {/* <Button 
           onClick={console.log('toggling sidebar')}
           content='Toggle Sidebar'
           color='red'
           floated='left'
-          />
+          /> */}
         <Button 
           onClick={this.props.closeDetailPage}
           content='Close Detail Page'

@@ -12,18 +12,7 @@ class NewArtPopup extends Component {
     this.state = {
       selectedFile: null,
       nickname: '',
-      img_url: '',
     }
-    this._isMounted = false
-  }
-
-
-  componentDidMount() {
-    this._isMounted = true
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false 
   }
   
   handleFileUpload = (event) => {
@@ -75,11 +64,10 @@ class NewArtPopup extends Component {
     return (
       <Popup>
         {this.state.selectedFile ? <p>{this.state.selectedFile.name}</p> : <Dropzone onChange={this.handleFileUpload} ></Dropzone>}
-        <Form onSubmit={this.handleFormSubmit}>
-          <Form.Input type='text' label='Artwork Nickname' value={this.state.nickname} onChange={this.handleInputChange} />
-          <Form.Input type='text' label='Artwork url' value={this.state.img_url} onChange={this.handleUrlChange} />
+        <Form.Field onSubmit={this.handleFormSubmit}>
+          <Form.Input type='text' label='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
           <Form.Button content='Submit' />
-        </Form>
+        </Form.Field>
       </Popup>
     )
   }
