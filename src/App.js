@@ -7,7 +7,7 @@ import DetailPage from './containers/DetailPage';
 class App extends Component {
   constructor() {
     super()
-
+    
     this.state = {
       allMarkers: []
     }

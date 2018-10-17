@@ -49,7 +49,7 @@ class LoginModal extends Component {
       >
         <Header icon='map outline' color='red' content='Login' />
         <Modal.Content>
-          <h3>Login to add some street art or close this if you just want to look.</h3>
+          <h3>Login to add some street art or click the 'x' to view only.</h3>
           <Form onSubmit={this.handleFormSubmit}>
             <Input focus placeholder='Username' value={this.state.username} onChange={this.handleUsernameChange}/><br/>
             <Input focus placeholder='Email Address' value={this.state.email} onChange={this.handleEmailChange}/><br/>

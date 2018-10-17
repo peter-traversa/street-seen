@@ -11,11 +11,6 @@ const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design<
 
 
 class MapComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
 
   componentDidMount() {
     fetch('http://localhost:3000/artworks')
@@ -24,10 +19,8 @@ class MapComponent extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <Map
-        ref={m => { this.leafletMap = m; }}
         center={this.props.mapCenter}
         zoom={this.props.zoomLevel}
         onClick={this.props.addNewMarker}
@@ -40,10 +33,10 @@ class MapComponent extends Component {
         {this.props.newArtwork && this.props.userId ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
         {this.props.allArtworks.map((artwork, idx) => 
           <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >
-          <Popup>
-            <ExistingArtPopup artwork={artwork} />
-          </Popup>
-        </Marker>
+            <Popup>
+              <ExistingArtPopup artwork={artwork} />
+            </Popup>
+          </Marker>
         )}
       </Map>
     );

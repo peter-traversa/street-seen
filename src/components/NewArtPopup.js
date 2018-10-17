@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Popup } from 'react-leaflet';
-import { Form } from 'semantic-ui-react';
+import { Form, Image } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { uploadFile } from 'react-s3';
@@ -10,8 +10,9 @@ class NewArtPopup extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedFile: null,
+      img_url: '',
       nickname: '',
+      selectedFile: false,
     }
   }
   
@@ -23,7 +24,7 @@ class NewArtPopup extends Component {
       secretAccessKey: `${process.env.REACT_APP_SECRET_ACCESS_KEY}`,
     }
     uploadFile(event.target.files[0], config)
-    .then(res => this.setState({img_url: res.location}))
+    .then(res => this.setState({img_url: res.location, selectedFile: true}))
   }
 
   handleFormSubmit = (event) => {
@@ -35,7 +36,6 @@ class NewArtPopup extends Component {
       user_id: this.props.userId,
     }
     this.props.addNewArtworkToMap(newArtwork);
-    console.log('form mounted')
     fetch('http://localhost:3000/artworks', {
       headers: {
         'Accept': 'application/json',
@@ -48,7 +48,7 @@ class NewArtPopup extends Component {
         latitude: this.props.newMarkerPosition[0], 
         longitude: this.props.newMarkerPosition[1], 
         img_url: this.state.img_url})
-    }).then(res => (this.setState({nickname: '', img_url: '', selectedFile: null})))
+    }).then(res => (this.setState({nickname: '', img_url: '', selectedFile: false})))
       .then(res => (this.props.submitNewArtwork()))
   }
   
@@ -63,7 +63,7 @@ class NewArtPopup extends Component {
   render() {
     return (
       <Popup>
-        {this.state.selectedFile ? <p>{this.state.selectedFile.name}</p> : <Dropzone onChange={this.handleFileUpload} ></Dropzone>}
+        {this.state.selectedFile ? <Image src={this.state.img_url} size='small' /> : <Dropzone onChange={this.handleFileUpload} ><p>Try dropping a file here, or click to select files to upload.<br/>Choose one image file.</p></Dropzone>}
         <Form onSubmit={this.handleFormSubmit}>
           <Form.Input type='text' label='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
           <Form.Button content='Submit' />

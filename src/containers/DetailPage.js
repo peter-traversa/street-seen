@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Button, Image } from 'semantic-ui-react'
 
 class DetailPage extends Component {
-  render() {
+  render(props) {
+    console.log(this.props)
     return (
       <React.Fragment>
         {/* <Button 
@@ -18,9 +19,10 @@ class DetailPage extends Component {
           color='red'
           floated='right'
         />
+        <Image size='big' centered id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
         <h1 align='center' >{this.props.selectedArtwork.nickname}</h1>
-        <Image size='huge' centered id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
         <h3 align='center' >Approximate Location - {this.props.selectedArtwork.latitude}, {this.props.selectedArtwork.longitude}</h3>
+        <h3 align='center' >Image uploaded by - {this.props.selectedArtwork.user.name}</h3>
       </React.Fragment>
     )
   }
