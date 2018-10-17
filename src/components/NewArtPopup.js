@@ -64,10 +64,10 @@ class NewArtPopup extends Component {
     return (
       <Popup>
         {this.state.selectedFile ? <p>{this.state.selectedFile.name}</p> : <Dropzone onChange={this.handleFileUpload} ></Dropzone>}
-        <Form.Field onSubmit={this.handleFormSubmit}>
+        <Form onSubmit={this.handleFormSubmit}>
           <Form.Input type='text' label='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
           <Form.Button content='Submit' />
-        </Form.Field>
+        </Form>
       </Popup>
     )
   }
