@@ -21,6 +21,7 @@ const CHANGE_MAP_CENTER = 'CHANGE_MAP_CENTER';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
 const ADD_NEW_ARTWORK_TO_MAP = 'ADD_NEW_ARTWORK_TO_MAP';
 const FETCH_ALL_TAGS = 'FETCH_ALL_TAGS';
+const VIEW_ARTWORK_FROM_LIST = 'VIEW_ARTWORK_FROM_LIST';
 
 function reducer(state=defaultState, action){
   switch(action.type){
@@ -46,6 +47,8 @@ function reducer(state=defaultState, action){
       return { ...state, allArtworks: [...state.allArtworks, action.payload] }
     case FETCH_ALL_TAGS:
       return { ...state, allTags: action.payload }
+    case VIEW_ARTWORK_FROM_LIST:
+      return { ...state, selectedArtwork: state.allArtworks[action.payload - 1]}
     default:
       return state;
   }

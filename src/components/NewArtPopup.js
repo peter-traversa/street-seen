@@ -29,6 +29,7 @@ class NewArtPopup extends Component {
 
   handleFormSubmit = (event) => {
     event.persist()
+    console.log(event)
     const newArtwork = {
       nickname: this.state.nickname,
       latitude: this.props.newMarkerPosition[0],
@@ -48,7 +49,8 @@ class NewArtPopup extends Component {
         nickname: this.state.nickname, 
         latitude: this.props.newMarkerPosition[0], 
         longitude: this.props.newMarkerPosition[1], 
-        img_url: this.state.img_url})
+        img_url: this.state.img_url,
+      })
     }).then(res => (this.setState({nickname: '', img_url: '', selectedFile: false})))
       .then(res => (this.props.submitNewArtwork()))
   }
@@ -69,7 +71,7 @@ class NewArtPopup extends Component {
           <Form.Input type='text' label='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
           <p>Tags</p><br/>
             <Grid columns={2}>
-              {this.props.allTags.map((tag, idx) => {return <Form.Checkbox key={idx} label={tag.name} />})}
+              {this.props.allTags.map(tag => {return <Form.Checkbox key={tag.id} data-id={tag.id} label={tag.name} />})}
             </Grid><br/><br/>
           <Form.Button color='red' inverted content='Submit' />
         </Form>

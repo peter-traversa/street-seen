@@ -1,35 +1,60 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Image, List, Grid } from 'semantic-ui-react'
+import { Button, Image, List, Grid, Sidebar } from 'semantic-ui-react';
+import ArtworkList from '../components/ArtworkList';
 
 class DetailPage extends Component {
-  render(props) {
-    
-    const openSidebar = () => {
-      console.log('opening sidebar')
-    }
+  constructor(){
+    super();
+    this.state = {
+      visible: false,
+    };
+  }
 
+  handleButtonClick = () => {
+    this.setState({visible: true})
+  }
+
+  render(props) {
     return (
       <React.Fragment>
-        <Button 
-          onClick={openSidebar}
-          content='Toggle Sidebar'
-          color='red'
-          floated='left'
+        <div>
+          <Button 
+            onClick={this.handleButtonClick}
+            content='Open Artwork List'
+            color='red'
+            floated='left'
+            />
+          <Button 
+            onClick={this.props.closeDetailPage}
+            content='Close Detail Page'
+            color='red'
+            floated='right'
           />
-        <Button 
-          onClick={this.props.closeDetailPage}
-          content='Close Detail Page'
-          color='red'
-          floated='right'
-        />
-        <Image size='big' centered id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
-        <h1 align='center' >{this.props.selectedArtwork.nickname}</h1>
-        <h3 align='center' >Approximate Location: {this.props.selectedArtwork.latitude}, {this.props.selectedArtwork.longitude}</h3>
-        <h3 align='center' >Image uploaded by: {this.props.selectedArtwork.user.name}</h3>
-        <Grid className='ui segment centered'>
-          <List bulleted horizontal >Image tags: {this.props.selectedArtwork.tags.map((tag, idx) => {return <List.Item key={idx} >{tag.name}</List.Item>})}</List>
-        </Grid>
+        </div>
+        <Sidebar.Pushable>
+          <Sidebar
+            animation='overlay'
+            inverted
+            onHide={this.handleSidebarHide}
+            vertical
+            visible={this.state.visible}
+            width='wide'
+          >
+            <ArtworkList />
+          </Sidebar>
+          <Sidebar.Pusher>
+            <div>
+              <Grid className='ui segment centered'>
+                <Image size='big' centered id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
+                <h1>{this.props.selectedArtwork.nickname}</h1>
+                <h3>Approximate Location: {this.props.selectedArtwork.latitude}, {this.props.selectedArtwork.longitude}</h3>
+                <h3>Image uploaded by: {this.props.selectedArtwork.user.name}</h3>
+                <List bulleted horizontal >Image tags: {this.props.selectedArtwork.tags.map(tag => {return <List.Item key={tag.id} >{tag.name}</List.Item>})}</List>
+              </Grid>
+            </div>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
       </React.Fragment>
     )
   }
@@ -37,7 +62,8 @@ class DetailPage extends Component {
 
 function MapStateToProps(state){
   return {
-    selectedArtwork: state.selectedArtwork
+    selectedArtwork: state.selectedArtwork,
+    allArtworks: state.allArtworks,
   }
 }
 
