@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Image, List, Header, Sidebar } from 'semantic-ui-react';
+import { Button, Image, List, Sidebar, Menu } from 'semantic-ui-react';
 import ArtworkList from '../components/ArtworkList';
 
 class DetailPage extends Component {
@@ -18,34 +18,35 @@ class DetailPage extends Component {
   render(props) {
     return (
       <React.Fragment>
-        <Header as='h2'>
-          <Button 
-            onClick={this.handleButtonClick}
-            content='Toggle Artwork List'
-            color='red'
-            floated='left'
+        <Menu>
+          <Menu.Item position='left' >
+            <Button 
+              onClick={this.handleButtonClick}
+              content='Toggle Artwork List'
+              color='red'
             />
-          <Button 
-            onClick={this.props.closeDetailPage}
-            content='Close Detail Page'
-            color='red'
-            floated='right'
-          />
-        </Header>
+          </Menu.Item>
+            <h2>{this.props.selectedArtwork.nickname} Detail Page</h2>
+          <Menu.Item position='right' >
+            <Button 
+              onClick={this.props.closeDetailPage}
+              content='Close Detail Page'
+              color='red'
+              position='right'
+            />
+          </Menu.Item>
+        </Menu>
         <Sidebar.Pushable>
           <Sidebar
             animation='overlay'
-            inverted
             onHide={this.handleSidebarHide}
-            vertical
             visible={this.state.visible}
             width='wide'
           >
             <ArtworkList />
           </Sidebar>
-          <Sidebar.Pusher height='900px'>
-            <Image size='large' centered id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
-            <h1>{this.props.selectedArtwork.nickname}</h1>
+          <Sidebar.Pusher position='center'>
+            <Image size='large' id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
             <h3>Approximate Location: {this.props.selectedArtwork.latitude}, {this.props.selectedArtwork.longitude}</h3>
             <h3>Image uploaded by: {this.props.selectedArtwork.user.name}</h3>
             <List bulleted horizontal >Image tags: {this.props.selectedArtwork.tags.map(tag => {return <List.Item key={tag.id} >{tag.name}</List.Item>})}</List>

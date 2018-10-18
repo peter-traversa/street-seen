@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Popup } from 'react-leaflet';
-import { Form, Image, Grid } from 'semantic-ui-react';
+import { Form, Image } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { uploadFile } from 'react-s3';
@@ -13,6 +13,8 @@ class NewArtPopup extends Component {
       img_url: '',
       nickname: '',
       selectedFile: false,
+      newArtwork: null,
+      tags: [],
     }
   }
   
@@ -28,8 +30,14 @@ class NewArtPopup extends Component {
   }
 
   handleFormSubmit = (event) => {
-    event.persist()
-    console.log(event)
+    event.persist();
+    for (let i = 1; i < 13; i++) {
+      if (event.nativeEvent.target[i].checked === true) {
+        this.setState(prevState=>{
+          return {tags: [...prevState.tags, i]}
+        })
+      }
+    }
     const newArtwork = {
       nickname: this.state.nickname,
       latitude: this.props.newMarkerPosition[0],
@@ -51,7 +59,22 @@ class NewArtPopup extends Component {
         longitude: this.props.newMarkerPosition[1], 
         img_url: this.state.img_url,
       })
-    }).then(res => (this.setState({nickname: '', img_url: '', selectedFile: false})))
+    }).then(res => res.json())
+      .then(data => this.setState({newArtwork: data}))
+      .then(res => this.state.tags.forEach(tag => {
+        fetch('http://localhost:3000/artwork_tags', {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: JSON.stringify({
+            artwork_id: this.state.newArtwork.id,
+            tag_id: tag
+          })
+        })
+      }))
+      .then(res => (this.setState({nickname: '', img_url: '', selectedFile: false, tags: [], newArtwork: null})))
       .then(res => (this.props.submitNewArtwork()))
   }
   
@@ -59,8 +82,8 @@ class NewArtPopup extends Component {
     this.setState({nickname: event.target.value})
   }
 
-  handleUrlChange = (event) => {
-    this.setState({nickname: event.target.value})
+  handleCheckboxChange = (event) => {
+    console.log(event.target.key)
   }
   
   render() {
@@ -70,9 +93,8 @@ class NewArtPopup extends Component {
         <Form onSubmit={this.handleFormSubmit}>
           <Form.Input type='text' label='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
           <p>Tags</p><br/>
-            <Grid columns={2}>
-              {this.props.allTags.map(tag => {return <Form.Checkbox key={tag.id} data-id={tag.id} label={tag.name} />})}
-            </Grid><br/><br/>
+            {this.props.allTags.map(tag => {return <Form.Checkbox type='checkbox' key={tag.id} value={tag.id} label={tag.name} />})}
+            <br/><br/>
           <Form.Button color='red' inverted content='Submit' />
         </Form>
       </Popup>

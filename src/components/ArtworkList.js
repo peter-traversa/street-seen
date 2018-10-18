@@ -7,7 +7,7 @@ const ArtworkList = (props) => {
     props.allArtworks.map(artwork => {
       return(
         <Card color='red' key={artwork.id} >
-          <Image src={`${artwork.img_url}`} alt={artwork.nickname} data-id={artwork.id} onClick={props.viewArtworkFromList} />
+          <Image src={`${artwork.img_url}`} alt={artwork.nickname} data-id={artwork.id} onClick={props.viewArtworkFromList} size='medium' />
           <Card.Content>
             <Card.Header >{artwork.nickname}</Card.Header>
           </Card.Content>
@@ -27,7 +27,6 @@ function mapDispatchToProps(dispatch) {
   return {
     viewArtworkFromList: (event) => {
       event.persist();
-      console.log(event.nativeEvent.target.dataset.id)
       dispatch({ type: 'VIEW_ARTWORK_FROM_LIST', payload: event.nativeEvent.target.dataset.id })
     }
   }
