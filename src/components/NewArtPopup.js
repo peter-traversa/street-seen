@@ -66,7 +66,7 @@ class NewArtPopup extends Component {
   render() {
     return (
       <Popup>
-        {this.state.selectedFile ? <Image src={this.state.img_url} size='small' /> : <Dropzone onChange={this.handleFileUpload} ><p>Try dropping a file here, or click to select files to upload.<br/>Choose one image file.</p></Dropzone>}
+        {this.state.selectedFile ? <Image src={this.state.img_url} size='small' /> : <Dropzone onChange={this.handleFileUpload} ><p>Try dropping a file here, or click to select a file to upload.<br/>Choose one image file.</p></Dropzone>}
         <Form onSubmit={this.handleFormSubmit}>
           <Form.Input type='text' label='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
           <p>Tags</p><br/>
