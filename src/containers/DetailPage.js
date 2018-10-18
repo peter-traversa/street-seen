@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Image, List, Grid, Sidebar } from 'semantic-ui-react';
+import { Button, Image, List, Header, Sidebar } from 'semantic-ui-react';
 import ArtworkList from '../components/ArtworkList';
 
 class DetailPage extends Component {
@@ -12,16 +12,16 @@ class DetailPage extends Component {
   }
 
   handleButtonClick = () => {
-    this.setState({visible: true})
+    this.setState({visible: !this.state.visible})
   }
 
   render(props) {
     return (
       <React.Fragment>
-        <div>
+        <Header as='h2'>
           <Button 
             onClick={this.handleButtonClick}
-            content='Open Artwork List'
+            content='Toggle Artwork List'
             color='red'
             floated='left'
             />
@@ -31,7 +31,7 @@ class DetailPage extends Component {
             color='red'
             floated='right'
           />
-        </div>
+        </Header>
         <Sidebar.Pushable>
           <Sidebar
             animation='overlay'
@@ -43,16 +43,12 @@ class DetailPage extends Component {
           >
             <ArtworkList />
           </Sidebar>
-          <Sidebar.Pusher>
-            <div>
-              <Grid className='ui segment centered'>
-                <Image size='big' centered id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
-                <h1>{this.props.selectedArtwork.nickname}</h1>
-                <h3>Approximate Location: {this.props.selectedArtwork.latitude}, {this.props.selectedArtwork.longitude}</h3>
-                <h3>Image uploaded by: {this.props.selectedArtwork.user.name}</h3>
-                <List bulleted horizontal >Image tags: {this.props.selectedArtwork.tags.map(tag => {return <List.Item key={tag.id} >{tag.name}</List.Item>})}</List>
-              </Grid>
-            </div>
+          <Sidebar.Pusher height='900px'>
+            <Image size='large' centered id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
+            <h1>{this.props.selectedArtwork.nickname}</h1>
+            <h3>Approximate Location: {this.props.selectedArtwork.latitude}, {this.props.selectedArtwork.longitude}</h3>
+            <h3>Image uploaded by: {this.props.selectedArtwork.user.name}</h3>
+            <List bulleted horizontal >Image tags: {this.props.selectedArtwork.tags.map(tag => {return <List.Item key={tag.id} >{tag.name}</List.Item>})}</List>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </React.Fragment>
