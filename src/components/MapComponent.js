@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
-import { iconExistingArt, iconNewArt } from './Icon.js';
+import { iconExistingArt, iconNewArt } from './Icon';
 import ExistingArtPopup from './ExistingArtPopup';
-import NewArtPopup from './NewArtPopup.js';
+import NewArtPopup from './NewArtPopup';
+import MapMenu from './MapMenu'
 import { connect } from 'react-redux';
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
@@ -41,26 +42,29 @@ class MapComponent extends Component {
 
   render() {
     return (
-      <Map
-        center={this.props.mapCenter}
-        zoom={this.props.zoomLevel}
-        onClick={this.props.addNewMarker}
-        onZoom={this.setLocalZoomState}
-        onDragend={this.setLocalCenterState}
-      >
-        <TileLayer
-            attribution={stamenTonerAttr}
-            url={stamenTonerTiles}
-        />
-        {this.props.newArtwork && this.props.userId ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
-        {this.props.allArtworks.map((artwork, idx) => 
-          <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >
-            <Popup>
-              <ExistingArtPopup artwork={artwork} />
-            </Popup>
-          </Marker>
-        )}
-      </Map>
+      <React.Fragment>
+        <MapMenu />
+        <Map
+          center={this.props.mapCenter}
+          zoom={this.props.zoomLevel}
+          onClick={this.props.addNewMarker}
+          onZoom={this.setLocalZoomState}
+          onDragend={this.setLocalCenterState}
+        >
+          <TileLayer
+              attribution={stamenTonerAttr}
+              url={stamenTonerTiles}
+          />
+          {this.props.newArtwork && this.props.userId ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
+          {this.props.allArtworks.map((artwork, idx) => 
+            <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >
+              <Popup>
+                <ExistingArtPopup artwork={artwork} />
+              </Popup>
+            </Marker>
+          )}
+        </Map>
+      </React.Fragment>
     );
   }
 }

@@ -1,25 +1,52 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Image, Dropdown } from 'semantic-ui-react';
 
-const ArtworkList = (props) => {
-  return (
-    props.allArtworks.map(artwork => {
-      return(
-        <Card color='red' key={artwork.id} >
-          <Image src={`${artwork.img_url}`} alt={artwork.nickname} data-id={artwork.id} onClick={props.viewArtworkFromList} size='medium' />
-          <Card.Content>
-            <Card.Header >{artwork.nickname}</Card.Header>
-          </Card.Content>
-        </Card>
-      )
+
+
+class ArtworkList extends Component {
+
+  state = {}
+
+  handleDropdownSelect = (e, { value }) => this.setState({ value })
+
+  render() {
+
+    const { value } = this.state;
+
+    const allTagsForDropdown = this.props.allTags.map(tag => {
+      return {key: tag.id, text: tag.name, value: tag.id}
     })
-  )
+
+    return (
+      <React.Fragment>
+        <Dropdown 
+          placeholder='Artwork Tags'
+          fluid
+          multiple selection
+          options={allTagsForDropdown}
+          onChange={this.handleDropdownSelect}
+          value={ value }
+        />
+        {this.props.allArtworks.map(artwork => {
+          return(
+            <Card key={artwork.id} color='red' >
+              <Image src={`${artwork.img_url}`} alt={artwork.nickname} data-id={artwork.id} onClick={this.props.viewArtworkFromList} size='medium' />
+              <Card.Content>
+                <Card.Header >{artwork.nickname}</Card.Header>
+              </Card.Content>
+            </Card>
+          )
+        })}
+      </React.Fragment>
+    )
+  }
 }
 
 function mapStateToProps(state) {
   return {
-    allArtworks: state.allArtworks
+    allArtworks: state.allArtworks,
+    allTags: state.allTags,
   }
 }
 
