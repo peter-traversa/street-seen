@@ -18,7 +18,7 @@ const VIEW_DETAIL_PAGE = 'VIEW_DETAIL_PAGE';
 const CHANGE_SELECTED_ARTWORK = 'CHANGE_SELECTED_ARTWORK';
 const CLOSE_DETAIL_PAGE = 'CLOSE_DETAIL_PAGE';
 const CHANGE_MAP_CENTER = 'CHANGE_MAP_CENTER';
-const CHANGE_ZOOM = 'CHANGE_ZOOM';
+const CHANGE_ZOOM_LEVEL = 'CHANGE_ZOOM_LEVEL';
 const ADD_NEW_ARTWORK_TO_MAP = 'ADD_NEW_ARTWORK_TO_MAP';
 const FETCH_ALL_TAGS = 'FETCH_ALL_TAGS';
 const VIEW_ARTWORK_FROM_LIST = 'VIEW_ARTWORK_FROM_LIST';
@@ -41,7 +41,7 @@ function reducer(state=defaultState, action){
       return { ...state, selectedArtwork: action.payload }
     case CHANGE_MAP_CENTER:
       return { ...state, mapCenter: action.payload }
-    case CHANGE_ZOOM:
+    case CHANGE_ZOOM_LEVEL:
       return { ...state, zoomLevel: action.payload }
     case ADD_NEW_ARTWORK_TO_MAP:
       return { ...state, allArtworks: [...state.allArtworks, action.payload] }

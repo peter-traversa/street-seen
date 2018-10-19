@@ -46,7 +46,7 @@ class DetailPage extends Component {
             <ArtworkList />
           </Sidebar>
           <Sidebar.Pusher position='center'>
-            <Image size='large' id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
+            <Image width='100%' id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
             <h3>Approximate Location: {this.props.selectedArtwork.latitude}, {this.props.selectedArtwork.longitude}</h3>
             <h3>Image uploaded by: {this.props.selectedArtwork.user.name}</h3>
             <List bulleted horizontal >Image tags: {this.props.selectedArtwork.tags.map(tag => {return <List.Item key={tag.id} >{tag.name}</List.Item>})}</List>

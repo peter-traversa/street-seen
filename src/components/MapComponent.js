@@ -7,10 +7,13 @@ import { connect } from 'react-redux';
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
 const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-// const mapCenter = [0, 0];
-
 
 class MapComponent extends Component {
+
+  state = {
+    center: [],
+    zoomLevel: 2,
+  }
 
   componentDidMount() {
     fetch('http://localhost:3000/artworks')
@@ -21,13 +24,29 @@ class MapComponent extends Component {
     .then(data => this.props.globalStateTags(data))
   }
 
+  componentWillUnmount() {
+    if (this.state.center.length > 1) {
+      this.props.changeMapCenter(this.state.center);
+      this.props.changeZoomLevel(this.state.zoomLevel);
+    }
+  }
+
+  setLocalZoomState = (event) => {
+    this.setState({zoomLevel: event.target.getZoom()});
+  };
+
+  setLocalCenterState = (event) => {
+    this.setState({center: [event.target.getCenter().lat, event.target.getCenter().lng]})
+  }
+
   render() {
     return (
       <Map
         center={this.props.mapCenter}
         zoom={this.props.zoomLevel}
         onClick={this.props.addNewMarker}
-        onZoom={this.props.changeZoomLevel}
+        onZoom={this.setLocalZoomState}
+        onDragend={this.setLocalCenterState}
       >
         <TileLayer
             attribution={stamenTonerAttr}
@@ -69,9 +88,12 @@ function mapDispatchToProps(dispatch){
     globalStateTags: (data) => {
       dispatch({type: 'FETCH_ALL_TAGS', payload: data})
     },
+    changeMapCenter: (center) => {
+      dispatch({type: 'CHANGE_MAP_CENTER', payload: center})
+    },
     changeZoomLevel: (zoomLevel) => {
-      dispatch({type: 'ZOOM_LEVEL', payload: zoomLevel.target._zoom})
-    }
+      dispatch({type: 'CHANGE_ZOOM_LEVEL', payload: zoomLevel})
+    },
   }
 }
 

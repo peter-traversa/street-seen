@@ -30,9 +30,8 @@ class NewArtPopup extends Component {
   }
 
   handleFormSubmit = (event) => {
-    event.persist();
     for (let i = 1; i < 13; i++) {
-      if (event.nativeEvent.target[i].checked === true) {
+      if (event.target[i].checked === true) {
         this.setState(prevState=>{
           return {tags: [...prevState.tags, i]}
         })
