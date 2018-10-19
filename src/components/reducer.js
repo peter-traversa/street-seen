@@ -22,6 +22,7 @@ const CHANGE_ZOOM_LEVEL = 'CHANGE_ZOOM_LEVEL';
 const ADD_NEW_ARTWORK_TO_MAP = 'ADD_NEW_ARTWORK_TO_MAP';
 const FETCH_ALL_TAGS = 'FETCH_ALL_TAGS';
 const VIEW_ARTWORK_FROM_LIST = 'VIEW_ARTWORK_FROM_LIST';
+const LOGOUT_USER = 'LOGOUT_USER'
 
 function reducer(state=defaultState, action){
   switch(action.type){
@@ -49,6 +50,8 @@ function reducer(state=defaultState, action){
       return { ...state, allTags: action.payload }
     case VIEW_ARTWORK_FROM_LIST:
       return { ...state, selectedArtwork: state.allArtworks[action.payload - 1]}
+    case LOGOUT_USER:
+      return { ...state, userId: null}
     default:
       return state;
   }
