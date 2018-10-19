@@ -6,7 +6,7 @@ const MapMenu = (props) => {
   return (
     <Menu>
       <Menu.Item><h2>User: </h2></Menu.Item>
-      {props.userId ? <Menu.Item><Button onClick={props.logoutUser} >Logout</Button></Menu.Item> : null}
+      {props.userId ? <Menu.Item><Button onClick={props.logoutUser} >Logout</Button></Menu.Item> : <Menu.Item><Button onClick={props.loginUser}>Login</Button></Menu.Item>}
     </Menu>
   )
 }
@@ -22,6 +22,9 @@ function mapDispatchToProps(dispatch){
     logoutUser: (e) => {
       dispatch({type: 'LOGOUT_USER', payload: null})
     },
+    loginUser: (e) => {
+      dispatch({type: 'LOGIN_USER', payload: null})
+    }
   }
 }
 

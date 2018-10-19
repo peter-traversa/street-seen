@@ -4,12 +4,9 @@ import { Header, Modal, Form, Input, Button } from 'semantic-ui-react'
 
 class LoginModal extends Component {
   state = { 
-    modalOpen: true,
     username: '',
     email: '',
   }
-
-  handleClose = () => this.setState({ modalOpen: false })
 
   handleFormSubmit = (event) => {
     if (this.state.username.length > 0 && this.state.email.length > 0) {
@@ -23,7 +20,7 @@ class LoginModal extends Component {
       })
       .then(res => res.json())
       .then(data => this.props.changeUserId(data.id))
-      .then(res => this.handleClose())
+      .then(res => this.props.handleModalClose())
     } else {
       alert('Please enter a username and email address');
       this.setState({username: '', email: ''})
@@ -42,8 +39,8 @@ class LoginModal extends Component {
     return (
       <Modal
         closeIcon
-        open={this.state.modalOpen}
-        onClose={this.handleClose}
+        open={this.props.modalOpen}
+        onClose={this.props.handleModalClose}
         basic
         size='small'
       >
@@ -63,7 +60,8 @@ class LoginModal extends Component {
 
 function mapStateToProps(state){
   return {
-    userId: state.userId
+    userId: state.userId,
+    modalOpen: state.modalOpen,
   }
 }
 
@@ -71,7 +69,10 @@ function mapDispatchToProps(dispatch){
   return {
     changeUserId: (userId) => {
       dispatch({type: 'CHANGE_USER_ID', payload: userId})
-    }
+    },
+    handleModalClose: () => {
+      dispatch({type: 'HANDLE_MODAL_CLOSE', payload: null})
+    },
   }
 }
 

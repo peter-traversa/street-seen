@@ -7,7 +7,8 @@ const defaultState = {
   selectedArtwork: null,
   mapCenter: [0, 0],
   zoomLevel: 2,
-  allTags: []
+  allTags: [],
+  modalOpen: true,
 };
 
 const SUBMIT_NEW_ARTWORK = 'SUBMIT_NEW_ARTWORK';
@@ -22,7 +23,9 @@ const CHANGE_ZOOM_LEVEL = 'CHANGE_ZOOM_LEVEL';
 const ADD_NEW_ARTWORK_TO_MAP = 'ADD_NEW_ARTWORK_TO_MAP';
 const FETCH_ALL_TAGS = 'FETCH_ALL_TAGS';
 const VIEW_ARTWORK_FROM_LIST = 'VIEW_ARTWORK_FROM_LIST';
-const LOGOUT_USER = 'LOGOUT_USER'
+const LOGOUT_USER = 'LOGOUT_USER';
+const LOGIN_USER = 'LOGIN_USER';
+const HANDLE_MODAL_CLOSE = 'HANDLE_MODAL_CLOSE';
 
 function reducer(state=defaultState, action){
   switch(action.type){
@@ -49,9 +52,13 @@ function reducer(state=defaultState, action){
     case FETCH_ALL_TAGS:
       return { ...state, allTags: action.payload }
     case VIEW_ARTWORK_FROM_LIST:
-      return { ...state, selectedArtwork: state.allArtworks[action.payload - 1]}
+      return { ...state, selectedArtwork: state.allArtworks[action.payload - 1] }
     case LOGOUT_USER:
-      return { ...state, userId: null}
+      return { ...state, userId: null }
+    case LOGIN_USER:
+      return { ...state, modalOpen: true }
+    case HANDLE_MODAL_CLOSE:
+      return { ...state, modalOpen: false }
     default:
       return state;
   }

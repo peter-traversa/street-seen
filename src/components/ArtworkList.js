@@ -6,9 +6,12 @@ import { Card, Image, Dropdown } from 'semantic-ui-react';
 
 class ArtworkList extends Component {
 
-  state = {}
+  state = {
+    filtered: false,
+    filteredArtworks: [],
+  }
 
-  handleDropdownSelect = (e, { value }) => this.setState({ value })
+  handleDropdownSelect = (e, { value }) => {this.setState({ value }); console.log(this.state.value)}
 
   render() {
 
@@ -16,6 +19,10 @@ class ArtworkList extends Component {
 
     const allTagsForDropdown = this.props.allTags.map(tag => {
       return {key: tag.id, text: tag.name, value: tag.id}
+    })
+
+    const listArtworks = this.props.allArtworks.forEach(artwork => {
+      artwork.tags.forEach(tag => console.log(tag.name))
     })
 
     return (
@@ -28,7 +35,7 @@ class ArtworkList extends Component {
           onChange={this.handleDropdownSelect}
           value={ value }
         />
-        {this.props.allArtworks.map(artwork => {
+        {listArtworks.map(artwork => {
           return(
             <Card key={artwork.id} color='red' >
               <Image src={`${artwork.img_url}`} alt={artwork.nickname} data-id={artwork.id} onClick={this.props.viewArtworkFromList} size='medium' />
