@@ -2,27 +2,43 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Card, Image, Dropdown } from 'semantic-ui-react';
 
-
-
 class ArtworkList extends Component {
 
   state = {
-    filtered: false,
     filteredArtworks: [],
     searchTagId: '',
+    tagsWithArtworks: [],
   }
 
-  handleDropdownSelect = (event, { value }) => {this.setState({ searchTagId: value })}
+  componentDidMount() {
+    this.setState({filteredArtworks: this.props.allArtworks})
+    fetch('http://localhost:3000/tags')
+      .then(res => res.json())
+      .then(tags => this.setState({tagsWithArtworks: tags}))
+  }
+
+  handleDropdownSelect = (event, { value }) => {
+    this.setState({ searchTagId: value });
+    if (value > 0) {
+      this.setState({filteredArtworks: this.state.tagsWithArtworks[value-1].artworks });
+    } else {
+      this.setState({filteredArtworks: this.props.allArtworks})
+    }
+  }
 
   render() {
 
     const { value } = this.state;
 
-    const allTagsForDropdown = this.props.allTags.map(tag => {
+    const firstSelection = [{key: 0, text: 'View All', value: null}]
+
+    const mapSelection = this.props.allTags.map(tag => {
       return {key: tag.id, text: tag.name, value: tag.id};
     })
 
-    const listArtworks = this.props.allArtworks;
+    const allSelection = firstSelection.concat(mapSelection)
+
+    const listArtworks = this.state.filteredArtworks;
 
     return (
       <React.Fragment>
@@ -30,7 +46,7 @@ class ArtworkList extends Component {
           placeholder='Filter by Tag'
           fluid
           selection
-          options={allTagsForDropdown}
+          options={allSelection}
           onChange={this.handleDropdownSelect}
           value={ value }
         />
