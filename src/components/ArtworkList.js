@@ -9,28 +9,27 @@ class ArtworkList extends Component {
   state = {
     filtered: false,
     filteredArtworks: [],
+    searchTagId: '',
   }
 
-  handleDropdownSelect = (e, { value }) => {this.setState({ value }); console.log(this.state.value)}
+  handleDropdownSelect = (event, { value }) => {this.setState({ searchTagId: value })}
 
   render() {
 
     const { value } = this.state;
 
     const allTagsForDropdown = this.props.allTags.map(tag => {
-      return {key: tag.id, text: tag.name, value: tag.id}
+      return {key: tag.id, text: tag.name, value: tag.id};
     })
 
-    const listArtworks = this.props.allArtworks.forEach(artwork => {
-      artwork.tags.forEach(tag => console.log(tag.name))
-    })
+    const listArtworks = this.props.allArtworks;
 
     return (
       <React.Fragment>
         <Dropdown 
-          placeholder='Artwork Tags'
+          placeholder='Filter by Tag'
           fluid
-          multiple selection
+          selection
           options={allTagsForDropdown}
           onChange={this.handleDropdownSelect}
           value={ value }
@@ -60,8 +59,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     viewArtworkFromList: (event) => {
-      event.persist();
-      dispatch({ type: 'VIEW_ARTWORK_FROM_LIST', payload: event.nativeEvent.target.dataset.id })
+      dispatch({ type: 'VIEW_ARTWORK_FROM_LIST', payload: event.target.dataset.id })
     }
   }
 }
