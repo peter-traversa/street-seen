@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import MapComponent from './components/MapComponent';
 import LoginModal from './components/LoginModal';
 import DetailPage from './containers/DetailPage';
+import MapMenu from './components/MapMenu'
 
 class App extends Component {
   constructor() {
@@ -11,7 +12,7 @@ class App extends Component {
     this.state = {
       allMarkers: []
     }
-    
+
   }
 
 
@@ -19,6 +20,7 @@ class App extends Component {
     return (
       <div>
         <LoginModal />
+        <MapMenu />
         {this.props.showMap ? <MapComponent /> : <DetailPage />}
       </div>
     );
