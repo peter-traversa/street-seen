@@ -39,7 +39,7 @@ class LoginModal extends Component {
         })
       })
       .then(res => res.json())
-      .then(data => this.props.changeUserId(data.id))
+      .then(data => this.props.changeUserId(data))
       .then(res => this.props.handleModalClose())
       .then(res => this.setState({badLogin: false, badUserCreate: false}))
     } else {
@@ -53,7 +53,7 @@ class LoginModal extends Component {
     })
     console.log(loggedInUser)
     if (loggedInUser && loggedInUser.password === this.state.loginPassword) {
-      this.props.changeUserId(loggedInUser.id);
+      this.props.changeUserId(loggedInUser);
       this.setState({loginUsername: '', loginPassword: '', badLogin: false, badUserCreate: false})
       this.props.handleModalClose();
     } else {

@@ -3,10 +3,10 @@ const defaultState = {
   allArtworks:[],
   newArtwork: false,
   newMarkerPosition: null,
-  userId: null,
+  currentUser: null,
   selectedArtwork: null,
   mapCenter: [0, 0],
-  zoomLevel: 2,
+  zoomLevel: 3,
   allTags: [],
   modalOpen: true,
 };
@@ -36,7 +36,7 @@ function reducer(state=defaultState, action){
     case SUBMIT_NEW_ARTWORK:
       return { ...state, newArtwork: false }
     case CHANGE_USER_ID:
-      return { ...state, userId: action.payload }
+      return { ...state, currentUser: action.payload }
     case VIEW_DETAIL_PAGE:
       return { ...state, showMap: false, selectedArtwork: action.payload }
     case CLOSE_DETAIL_PAGE:
@@ -54,7 +54,7 @@ function reducer(state=defaultState, action){
     case VIEW_ARTWORK_FROM_LIST:
       return { ...state, selectedArtwork: state.allArtworks[action.payload - 1] }
     case LOGOUT_USER:
-      return { ...state, userId: null }
+      return { ...state, currentUser: null }
     case LOGIN_USER:
       return { ...state, modalOpen: true }
     case HANDLE_MODAL_CLOSE:

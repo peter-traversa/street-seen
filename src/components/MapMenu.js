@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Menu, Button } from 'semantic-ui-react';
+import { Button, Grid, Image } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import '../App.css'
 
 class MapMenu extends Component {
   constructor() {
@@ -10,40 +11,29 @@ class MapMenu extends Component {
       // searchInput: '',
     }
   }
-
-  // handleSearchInputChange = (event) => {
-  //   this.setState({searchInput: event.target.value})
-  // }
-
-  
-  // handleSearchSubmit = (event) => {
-  //   event.preventDefault();
-  //   const query = this.state.searchInput.split(' ').join('+').split(',').join('%2C').toLowerCase();
-
-  //   console.log(query)
-  //   fetch(`https://api.opencagedata.com/geocode/version/json?q=${query}&key=${process.env.REACT_APP_ACCESS_KEY_ID}`)
-  //   .then(res =>res.json())
-  //   .then(data => console.log(data))
-  //   this.setState({searchInput: ''})
-  // }
   
   render() {
     return (
-      <Menu>
-        <Menu.Item><h2>User: </h2></Menu.Item>
-        <Menu.Item><h2>Map Center: {this.props.mapCenter}</h2></Menu.Item>
-        {/* <Form onSubmit={this.handleSearchSubmit} >
-          <Form.Input focus placeholder='Search Map by Address' value={this.state.searchInput} onChange={this.handleSearchInputChange} />  
-        </Form> */}
-        {this.props.userId ? <Menu.Item><Button color='red' onClick={this.props.logoutUser} >Logout</Button></Menu.Item> : <Menu.Item><Button color='green' onClick={this.props.loginUser}>Login</Button></Menu.Item>}
-      </Menu>
+      <div className='concrete-background' >
+        <Grid columns={3}>
+          <Grid.Column>
+            <h2>Username: {this.props.currentUser ? `${this.props.currentUser.name}` :  'Please log in.'}</h2>
+          </Grid.Column>
+          <Grid.Column className='street-seen-logo'>
+            <h2 align='center'>Street Seen</h2>
+          </Grid.Column>
+          <Grid.Column>
+            {this.props.currentUser ? <Button floated='right' color='red' size='large' onClick={this.props.logoutUser} >Logout</Button> : <Button floated='right' color='green' size='large' onClick={this.props.loginUser}>Login</Button>}
+          </Grid.Column>
+        </Grid>
+      </div>
     )
   }
 }
 
 function mapStateToProps(state){
   return {
-    userId: state.userId,
+    currentUser: state.currentUser,
     mapCenter: state.mapCenter,
   }
 }

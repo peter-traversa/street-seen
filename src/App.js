@@ -18,7 +18,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className='parent-div'>
         <LoginModal />
         <MapMenu />
         {this.props.showMap ? <MapComponent /> : <DetailPage />}

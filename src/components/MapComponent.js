@@ -4,7 +4,6 @@ import { iconExistingArt, iconNewArt } from './Icon';
 import ExistingArtPopup from './ExistingArtPopup';
 import NewArtPopup from './NewArtPopup';
 import { connect } from 'react-redux';
-import Search from './MapSearch';
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
 const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
@@ -13,13 +12,8 @@ class MapComponent extends Component {
   
   state = {
     center: [],
-    zoomLevel: 2,
+    zoomLevel: 3,
   }
-
-  // componentWillMount() {
-  //   const map = L.map;
-  //   this.leafletElement = map
-  // }
   
   componentDidMount() {
     fetch('http://localhost:3000/artworks')
@@ -42,26 +36,25 @@ class MapComponent extends Component {
   };
   
   setLocalCenterState = (event) => {
-    this.setState({center: [event.target.getCenter().lat, event.target.getCenter().lng]})
+    this.setState({center: [event.target.getCenter().lat, event.target.getCenter().lng]});
   }
 
   render() {
     return (
       <React.Fragment>
         <Map
-          ref={(map) => this.leaf = map}
+          ref={(map) => this.map = map}
           center={this.props.mapCenter}
           zoom={this.props.zoomLevel}
           onClick={this.props.addNewMarker}
           onZoom={this.setLocalZoomState}
           onDragend={this.setLocalCenterState}
         >
-        <Search />
         <TileLayer
           attribution={stamenTonerAttr}
           url={stamenTonerTiles}
         />
-          {this.props.newArtwork && this.props.userId ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
+          {this.props.newArtwork && this.props.currentUser ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
           {this.props.allArtworks.map((artwork, idx) => 
             <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >
               <Popup>
@@ -81,7 +74,7 @@ function mapStateToProps(state){
     showMap: state.showMap,
     newArtwork: state.newArtwork,
     newMarkerPosition: state.newMarkerPosition,
-    userId: state.userId,
+    currentUser: state.currentUser,
     zoomLevel: state.zoomLevel,
     mapCenter: state.mapCenter,
   }

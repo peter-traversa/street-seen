@@ -50,9 +50,9 @@ class ArtworkList extends Component {
           onChange={this.handleDropdownSelect}
           value={ value }
         />
-        {listArtworks.map(artwork => {
+        {listArtworks.map((artwork, idx) => {
           return(
-            <Card key={artwork.id} color='red' >
+            <Card key={idx} color='red' >
               <Image src={`${artwork.img_url}`} alt={artwork.nickname} data-id={artwork.id} onClick={this.props.viewArtworkFromList} size='medium' />
               <Card.Content>
                 <Card.Header >{artwork.nickname}</Card.Header>

@@ -42,7 +42,9 @@ class NewArtPopup extends Component {
       latitude: this.props.newMarkerPosition[0],
       longitude: this.props.newMarkerPosition[1],
       img_url: this.state.img_url,
-      user_id: this.props.userId,
+      user_id: this.props.currentUser.id,
+      user: this.props.currentUser,
+      tags: this.state.tags
     }
     this.props.addNewArtworkToMap(newArtwork);
     fetch('http://localhost:3000/artworks', {
@@ -52,7 +54,7 @@ class NewArtPopup extends Component {
       },
       method: 'POST',
       body: JSON.stringify({
-        user_id: this.props.userId, 
+        user_id: this.props.currentUser.id, 
         nickname: this.state.nickname, 
         latitude: this.props.newMarkerPosition[0], 
         longitude: this.props.newMarkerPosition[1], 
@@ -74,6 +76,9 @@ class NewArtPopup extends Component {
         })
       }))
       .then(res => (this.setState({nickname: '', img_url: '', selectedFile: false, tags: [], newArtwork: null})))
+      .then(res => fetch('http://localhost:3000/artworks')
+      .then(r => r.json())
+      .then(data => this.props.globalStateArtworks(data)))
       .then(res => (this.props.submitNewArtwork()))
   }
   
@@ -88,7 +93,7 @@ class NewArtPopup extends Component {
   render() {
     return (
       <Popup>
-        {this.state.selectedFile ? <Image src={this.state.img_url} size='small' /> : <Dropzone onChange={this.handleFileUpload} ><p>Try dropping a file here, or click to select a file to upload.<br/>Choose one image file.</p></Dropzone>}
+        {this.state.selectedFile ? <Image src={this.state.img_url} size='small' /> : <Dropzone accept='image/jpeg, image/png, image/gif' onChange={this.handleFileUpload} ><p>Try dropping a file here, or click to select a file to upload.<br/>Choose one image file.</p></Dropzone>}
         <Form onSubmit={this.handleFormSubmit}>
           <Form.Input type='text' label='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
           <p>Tags</p><br/>
@@ -104,7 +109,7 @@ class NewArtPopup extends Component {
 function mapStateToProps(state) {
   return {
     newMarkerPosition: state.newMarkerPosition,
-    userId: state.userId,
+    currentUser: state.currentUser,
     allTags: state.allTags,
   }
 }
@@ -116,6 +121,9 @@ function mapDispatchToProps(dispatch){
     },
     addNewArtworkToMap: (newArtwork) => {
       dispatch({type: 'ADD_NEW_ARTWORK_TO_MAP', payload: newArtwork})
+    },
+    globalStateArtworks: (data) => {
+      dispatch({type: 'FETCH_ALL_ARTWORKS', payload: data})
     },
   }
 }

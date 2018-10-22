@@ -30,3 +30,25 @@
     transform: rotate(360deg);
   }
 }
+
+.brick-background {
+  height: 100%;
+  background-image: url('./images/black-brick-wall-texture.jpg');
+  background-size: 110%;
+  -webkit-text-fill-color: white
+}
+
+.concrete-background {
+  background-image: url('./images/concrete-background.jpg');
+  background-size: cover;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.parent-div {
+  height: 860px;
+}
+
+.street-seen-logo {
+  font-family: 'Permanent Marker', cursive;
+}
