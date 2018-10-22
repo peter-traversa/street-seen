@@ -8619,6 +8619,11 @@ react-leaflet-search@^0.5.1:
   resolved "https://registry.yarnpkg.com/react-leaflet-search/-/react-leaflet-search-0.5.1.tgz#1f0b7bde1362af022837d436042eaf04d77a899f"
   integrity sha512-Yzbc8sr8+khH5eF1xeHzeuPuwGgFi72qz8G8zErmr0N8J+NyY4aviDemyX161EH/7CMeJAFZ0bpT/A7Wn0OoPw==
 
+react-leaflet-zoom-indicator@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-leaflet-zoom-indicator/-/react-leaflet-zoom-indicator-0.1.2.tgz#1ab4d9d57b29b28d6f9a0d9aaa38431c6c244d15"
+  integrity sha512-l5dCT+GpmKG2U3enYVxi3ThxqJo+ObITfLtm6Kk8NdXx1RODHKGuHBvd3uFtd5JaunyRLzCaj8aVxRtWw+7eEA==
+
 react-leaflet@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-2.1.0.tgz#96f01ebceebad8a0043c3edadbe631279d4ba740"

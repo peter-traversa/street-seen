@@ -4,6 +4,7 @@ import { iconExistingArt, iconNewArt } from './Icon';
 import ExistingArtPopup from './ExistingArtPopup';
 import NewArtPopup from './NewArtPopup';
 import { connect } from 'react-redux';
+// import { ReactLeafletSearch } from 'react-leaflet-search'
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
 const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
@@ -48,12 +49,12 @@ class MapComponent extends Component {
           onClick={this.props.addNewMarker}
           onZoom={this.setLocalZoomState}
           onDragend={this.setLocalCenterState}
-          map={this.props.map}
         >
-          <TileLayer
-            attribution={stamenTonerAttr}
-            url={stamenTonerTiles}
-          />
+        <TileLayer
+          attribution={stamenTonerAttr}
+          url={stamenTonerTiles}
+        />
+        {/* <ReactLeafletSearch props={this.map} /> */}
           {this.props.newArtwork && this.props.userId ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
           {this.props.allArtworks.map((artwork, idx) => 
             <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >
