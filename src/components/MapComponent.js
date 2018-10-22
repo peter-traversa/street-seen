@@ -4,7 +4,7 @@ import { iconExistingArt, iconNewArt } from './Icon';
 import ExistingArtPopup from './ExistingArtPopup';
 import NewArtPopup from './NewArtPopup';
 import { connect } from 'react-redux';
-// import { ReactLeafletSearch } from 'react-leaflet-search'
+import Search from './MapSearch';
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
 const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
@@ -15,6 +15,11 @@ class MapComponent extends Component {
     center: [],
     zoomLevel: 2,
   }
+
+  // componentWillMount() {
+  //   const map = L.map;
+  //   this.leafletElement = map
+  // }
   
   componentDidMount() {
     fetch('http://localhost:3000/artworks')
@@ -44,17 +49,18 @@ class MapComponent extends Component {
     return (
       <React.Fragment>
         <Map
+          ref={(map) => this.leaf = map}
           center={this.props.mapCenter}
           zoom={this.props.zoomLevel}
           onClick={this.props.addNewMarker}
           onZoom={this.setLocalZoomState}
           onDragend={this.setLocalCenterState}
         >
+        <Search />
         <TileLayer
           attribution={stamenTonerAttr}
           url={stamenTonerTiles}
         />
-        {/* <ReactLeafletSearch props={this.map} /> */}
           {this.props.newArtwork && this.props.userId ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
           {this.props.allArtworks.map((artwork, idx) => 
             <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >

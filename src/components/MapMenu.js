@@ -7,13 +7,13 @@ class MapMenu extends Component {
     super()
 
     this.state = {
-      searchInput: '',
+      // searchInput: '',
     }
   }
 
-  handleSearchInputChange = (event) => {
-    this.setState({searchInput: event.target.value})
-  }
+  // handleSearchInputChange = (event) => {
+  //   this.setState({searchInput: event.target.value})
+  // }
 
   
   // handleSearchSubmit = (event) => {
@@ -31,10 +31,11 @@ class MapMenu extends Component {
     return (
       <Menu>
         <Menu.Item><h2>User: </h2></Menu.Item>
+        <Menu.Item><h2>Map Center: {this.props.mapCenter}</h2></Menu.Item>
         {/* <Form onSubmit={this.handleSearchSubmit} >
           <Form.Input focus placeholder='Search Map by Address' value={this.state.searchInput} onChange={this.handleSearchInputChange} />  
         </Form> */}
-        {this.props.userId ? <Menu.Item><Button onClick={this.props.logoutUser} >Logout</Button></Menu.Item> : <Menu.Item><Button onClick={this.props.loginUser}>Login</Button></Menu.Item>}
+        {this.props.userId ? <Menu.Item><Button color='red' onClick={this.props.logoutUser} >Logout</Button></Menu.Item> : <Menu.Item><Button color='green' onClick={this.props.loginUser}>Login</Button></Menu.Item>}
       </Menu>
     )
   }
@@ -42,7 +43,8 @@ class MapMenu extends Component {
 
 function mapStateToProps(state){
   return {
-    userId: state.userId
+    userId: state.userId,
+    mapCenter: state.mapCenter,
   }
 }
 
