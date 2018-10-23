@@ -23,7 +23,7 @@ class DetailPage extends Component {
             <Grid.Column>
               <Button 
                 onClick={this.handleButtonClick}
-                content='Toggle Artwork List'
+                content={this.state.visible ? 'Close All Artworks' : 'Open All Artworks'}
                 color='black'
                 floated='left'
               />
@@ -51,18 +51,16 @@ class DetailPage extends Component {
             <Sidebar.Pusher>
               <Grid textAlign='center'>
                 <Grid.Row>
-                  <h3 text-align='center'>Image uploaded by: {this.props.selectedArtwork.user.name}</h3>
+                  <h3 text-align='center'>Image uploaded by: &nbsp;{this.props.selectedArtwork.user.name}</h3>
                 </Grid.Row>
                 <Grid.Row>
-                  <h3>Approximate Location: {this.props.selectedArtwork.latitude}, {this.props.selectedArtwork.longitude}</h3>
+                  <h3>Approximate Location: &nbsp;{this.props.selectedArtwork.latitude}, &nbsp;{this.props.selectedArtwork.longitude}</h3>
                 </Grid.Row>
                 <Grid.Row>
-                  <h3>Tags: </h3><List bulleted horizontal >Image tags: {this.props.selectedArtwork.tags.map(tag => {return <List.Item key={tag.id} ><h3>{tag.name}</h3></List.Item>})}</List>
-                </Grid.Row>
-                <Grid.Row>
-                  <Image centered id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
+                  <h3>Tags: &nbsp;</h3><List bulleted horizontal >Image tags: {this.props.selectedArtwork.tags.map(tag => {return <List.Item key={tag.id} ><h3>{tag.name}</h3></List.Item>})}</List><br/>
                 </Grid.Row>
               </Grid>
+                <Image size='massive' centered id='detail-page-image' src={`${this.props.selectedArtwork.img_url}`} alt='artwork' />
             </Sidebar.Pusher>
           </Sidebar.Pushable>
       </div>

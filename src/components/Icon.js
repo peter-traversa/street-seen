@@ -3,11 +3,11 @@ import { Icon } from 'leaflet';
 const iconExistingArt = new Icon({
   iconUrl: require('../images/paint-spray.png'),
   iconRetinaUrl: require('../images/paint-spray.png'),
-  iconSize: [30, 30],
+  iconSize: [15, 15],
   shadowSize: [null, null],
-  iconAnchor: [20, 20],
+  iconAnchor: [8, 8],
   shadowAnchor: [null, null],
-  popupAnchor: [0, -15],
+  popupAnchor: [0, -5],
 });
 const iconNewArt = new Icon({
   iconUrl: require('../images/NewArtMarker.png'),

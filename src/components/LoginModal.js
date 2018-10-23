@@ -40,8 +40,8 @@ class LoginModal extends Component {
       })
       .then(res => res.json())
       .then(data => this.props.changeUserId(data))
-      .then(res => this.props.handleModalClose())
       .then(res => this.setState({badLogin: false, badUserCreate: false}))
+      .then(res => this.props.handleModalClose())
     } else {
       this.setState({createUsername: '', createUserEmail: '', createUserPassword: '', badUserCreate: true})
     }

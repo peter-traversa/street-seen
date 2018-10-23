@@ -17,10 +17,10 @@ class MapMenu extends Component {
       <div className='concrete-background' >
         <Grid columns={3}>
           <Grid.Column>
-            <h2>Username: {this.props.currentUser ? `${this.props.currentUser.name}` :  'Please log in.'}</h2>
+            <h2>Username: &nbsp;{this.props.currentUser ? `${this.props.currentUser.name}` :  'Please log in.'}</h2>
           </Grid.Column>
-          <Grid.Column className='street-seen-logo'>
-            <h2 align='center'>Street Seen</h2>
+          <Grid.Column>
+            <div className='street-seen-logo'><p align='center'>Street Seen</p></div>
           </Grid.Column>
           <Grid.Column>
             {this.props.currentUser ? <Button floated='right' color='red' size='large' onClick={this.props.logoutUser} >Logout</Button> : <Button floated='right' color='green' size='large' onClick={this.props.loginUser}>Login</Button>}

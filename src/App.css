@@ -32,13 +32,16 @@
 }
 
 .brick-background {
-  height: 100%;
+  margin-top: 14px;
+  height: 150%;
   background-image: url('./images/black-brick-wall-texture.jpg');
-  background-size: 110%;
-  -webkit-text-fill-color: white
+  background-size: 150%%;
+  -webkit-text-fill-color: white;
+  margin-bottom: 0px;
 }
 
 .concrete-background {
+  height: 50px;
   background-image: url('./images/concrete-background.jpg');
   background-size: cover;
   padding: 5px;
@@ -46,9 +49,23 @@
 }
 
 .parent-div {
-  height: 860px;
+  height: 850px;
 }
 
 .street-seen-logo {
   font-family: 'Permanent Marker', cursive;
+  font-size: 35px;
+}
+
+.all-artwork-dropdown {
+  -webkit-text-fill-color: black;
+}
+
+.new-art-popup {
+  background-color: black;
+  -webkit-text-fill-color: white;
+}
+
+.existing-art-popup {
+  text-align: center;
 }

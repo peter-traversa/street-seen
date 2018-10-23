@@ -57,7 +57,7 @@ class MapComponent extends Component {
           {this.props.newArtwork && this.props.currentUser ? <Marker position={this.props.newMarkerPosition} icon={iconNewArt} ><NewArtPopup /></Marker> : null}
           {this.props.allArtworks.map((artwork, idx) => 
             <Marker key={idx} position={[artwork.latitude, artwork.longitude]} icon={iconExistingArt} >
-              <Popup>
+              <Popup minWidth='300' maxWidth='500'>
                 <ExistingArtPopup artwork={artwork} />
               </Popup>
             </Marker>

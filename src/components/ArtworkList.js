@@ -41,7 +41,7 @@ class ArtworkList extends Component {
     const listArtworks = this.state.filteredArtworks;
 
     return (
-      <React.Fragment>
+      <div className='all-artwork-dropdown'>
         <Dropdown 
           placeholder='Filter by Tag'
           fluid
@@ -60,7 +60,7 @@ class ArtworkList extends Component {
             </Card>
           )
         })}
-      </React.Fragment>
+      </div>
     )
   }
 }
