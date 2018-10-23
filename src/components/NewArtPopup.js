@@ -110,9 +110,9 @@ class NewArtPopup extends Component {
 
 function mapStateToProps(state) {
   return {
-    newMarkerPosition: state.newMarkerPosition,
-    currentUser: state.currentUser,
-    allTags: state.allTags,
+    newMarkerPosition: state.reducer.newMarkerPosition,
+    currentUser: state.reducer.currentUser,
+    allTags: state.reducer.allTags,
   }
 }
 

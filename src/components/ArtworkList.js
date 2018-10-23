@@ -67,8 +67,8 @@ class ArtworkList extends Component {
 
 function mapStateToProps(state) {
   return {
-    allArtworks: state.allArtworks,
-    allTags: state.allTags,
+    allArtworks: state.reducer.allArtworks,
+    allTags: state.reducer.allTags,
   }
 }
 

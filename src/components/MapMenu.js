@@ -33,8 +33,8 @@ class MapMenu extends Component {
 
 function mapStateToProps(state){
   return {
-    currentUser: state.currentUser,
-    mapCenter: state.mapCenter,
+    currentUser: state.reducer.currentUser,
+    mapCenter: state.reducer.mapCenter,
   }
 }
 

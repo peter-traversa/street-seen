@@ -71,13 +71,13 @@ class MapComponent extends Component {
 
 function mapStateToProps(state){
   return {
-    allArtworks: state.allArtworks,
-    showMap: state.showMap,
-    newArtwork: state.newArtwork,
-    newMarkerPosition: state.newMarkerPosition,
-    currentUser: state.currentUser,
-    zoomLevel: state.zoomLevel,
-    mapCenter: state.mapCenter,
+    allArtworks: state.reducer.allArtworks,
+    showMap: state.reducer.showMap,
+    newArtwork: state.reducer.newArtwork,
+    newMarkerPosition: state.reducer.newMarkerPosition,
+    currentUser: state.reducer.currentUser,
+    zoomLevel: state.reducer.zoomLevel,
+    mapCenter: state.reducer.mapCenter,
   }
 }
 

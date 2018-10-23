@@ -5,20 +5,28 @@ import LoginModal from './components/LoginModal';
 import DetailPage from './containers/DetailPage';
 import MapMenu from './components/MapMenu'
 
-const App = props => {
-  console.log(props)
-  return (
-    <div className='parent-div'>
-      <LoginModal />
-      <MapMenu />
-      {this.props.showMap ? <MapComponent /> : <DetailPage />}
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props)
 
+    this.state = {
+      allMarkers: []
+    }
+  }
+
+  render() {
+    return (
+      <div className='parent-div'>
+        <LoginModal />
+        <MapMenu />
+        {this.props.showMap ? <MapComponent /> : <DetailPage />}
+      </div>
+    );
+  }
 }
 
 function mapStateToProps(state){
-  return {showMap: state.showMap}
+  return {showMap: state.reducer.showMap}
 }
 
 export default connect(mapStateToProps)(App);

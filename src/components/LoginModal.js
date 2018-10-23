@@ -14,51 +14,70 @@ class LoginModal extends Component {
     badUserCreate: false,
   }
 
-  componentDidMount() {
-    fetch('http://localhost:3000/users')
-    .then(r => r.json())
-    .then(users => this.setState({users}))
-  }
-
   componentWillUnmount() {
     this.setState({badLogin: false, badUserCreate: false})
   }
 
-  handleCreateUser = (event) => {
-    if (this.state.createUsername.length > 0 && this.state.createUserEmail.length > 0 && this.state.createUserPassword.length > 0) {
-      fetch('http://localhost:3000/users', {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify({
-          name: this.state.createUsername, 
-          email: this.state.createUserEmail, 
-          password: this.state.createUserPassword
-        })
-      })
-      .then(res => res.json())
-      .then(data => this.props.changeUserId(data))
-      .then(res => this.setState({badLogin: false, badUserCreate: false}))
-      .then(res => this.props.handleModalClose())
+  handleCreateUserResponse = (data) => {
+    if (data.error) {
+      this.setState({createUsername: '', createUserEmail: '', createUserPassword: '', badUserCreate: true});
     } else {
-      this.setState({createUsername: '', createUserEmail: '', createUserPassword: '', badUserCreate: true})
+      this.props.changeUserId(data.user);
+      this.props.handleModalClose();
     }
   }
 
-  handleLoginSubmit = (event) => {
-    const loggedInUser = this.state.users.find(user => {
-      return user.name === this.state.loginUsername
-    })
-    console.log(loggedInUser)
-    if (loggedInUser && loggedInUser.password === this.state.loginPassword) {
-      this.props.changeUserId(loggedInUser);
-      this.setState({loginUsername: '', loginPassword: '', badLogin: false, badUserCreate: false})
-      this.props.handleModalClose();
-    } else {
+  handleLoginResponse = (data) => {
+    if (data.error) {
       this.setState({loginUsername: '', loginPassword: '', badLogin: true})
+    } else {
+      this.props.changeUserId(data.user);
+      this.props.handleModalClose();
     }
+  }
+
+  handleCreateUser = (event) => {
+    fetch('http://localhost:3000/api/v1/users', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        name: this.state.createUsername, 
+        email: this.state.createUserEmail, 
+        password: this.state.createUserPassword
+      })
+    })
+    .then(res => res.json())
+    .then(data => this.handleCreateUserResponse(data))
+  };
+
+  handleLoginSubmit = (event) => {
+    fetch('http://localhost:3000/api/v1/login', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        name: this.state.loginUsername, 
+        password: this.state.loginPassword,
+      })
+    })
+    .then(res => res.json())
+    .then(data => this.handleLoginResponse(data))
+    // const loggedInUser = this.state.users.find(user => {
+    //   return user.name === this.state.loginUsername
+    // })
+    // console.log(loggedInUser)
+    // if (loggedInUser && loggedInUser.password === this.state.loginPassword) {
+    //   this.props.changeUserId(loggedInUser);
+    //   this.setState({loginUsername: '', loginPassword: '', badLogin: false, badUserCreate: false})
+    //   this.props.handleModalClose();
+    // } else {
+    //   this.setState({loginUsername: '', loginPassword: '', badLogin: true})
+    // }
   }
 
   handleLoginUsernameChange = (event) => {
@@ -93,7 +112,7 @@ class LoginModal extends Component {
         size='small'
       >
         {this.state.badLogin ? <Header color='green' content='Please provide valid login credentials' /> : null}
-        {this.state.badUserCreate ? <Header color='green' content='Please provide all user credentials to create account' /> : null}
+        {this.state.badUserCreate ? <Header color='green' content='Username taken or email invalid. Please try again.' /> : null}
         <Header icon='map outline' color='red' content='Login' />
         <Modal.Content>
           <h3>Login to add some street art or click the 'x' to view only.</h3>
@@ -117,15 +136,15 @@ class LoginModal extends Component {
 
 function mapStateToProps(state){
   return {
-    userId: state.userId,
-    modalOpen: state.modalOpen,
+    userId: state.reducer.userId,
+    modalOpen: state.reducer.modalOpen,
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    changeUserId: (userId) => {
-      dispatch({type: 'CHANGE_USER_ID', payload: userId})
+    changeUserId: (user) => {
+      dispatch({type: 'CHANGE_USER', payload: user})
     },
     handleModalClose: () => {
       dispatch({type: 'HANDLE_MODAL_CLOSE', payload: null})

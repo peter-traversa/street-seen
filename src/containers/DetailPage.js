@@ -70,8 +70,8 @@ class DetailPage extends Component {
 
 function MapStateToProps(state){
   return {
-    selectedArtwork: state.selectedArtwork,
-    allArtworks: state.allArtworks,
+    selectedArtwork: state.reducer.selectedArtwork,
+    allArtworks: state.reducer.allArtworks,
   }
 }
 
