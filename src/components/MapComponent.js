@@ -12,7 +12,7 @@ class MapComponent extends Component {
   
   state = {
     center: [],
-    zoomLevel: 3,
+    zoomLevel: 2,
   }
   
   componentDidMount() {
@@ -49,6 +49,7 @@ class MapComponent extends Component {
           onClick={this.props.addNewMarker}
           onZoom={this.setLocalZoomState}
           onDragend={this.setLocalCenterState}
+          minZoom={2}
         >
         <TileLayer
           attribution={stamenTonerAttr}

@@ -69,3 +69,7 @@
 .existing-art-popup {
   text-align: center;
 }
+
+.existing-art-popup-image {
+  margin: auto;
+}

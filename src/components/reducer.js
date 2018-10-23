@@ -6,7 +6,7 @@ const defaultState = {
   currentUser: null,
   selectedArtwork: null,
   mapCenter: [0, 0],
-  zoomLevel: 3,
+  zoomLevel: 2,
   allTags: [],
   modalOpen: true,
 };

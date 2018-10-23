@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Grid, Image } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import '../App.css'
 
