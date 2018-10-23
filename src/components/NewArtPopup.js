@@ -47,7 +47,7 @@ class NewArtPopup extends Component {
       tags: this.state.tags
     }
     this.props.addNewArtworkToMap(newArtwork);
-    fetch('http://localhost:3000/artworks', {
+    fetch('http://localhost:3000/api/v1/artworks', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ class NewArtPopup extends Component {
     }).then(res => res.json())
       .then(data => this.setState({newArtwork: data}))
       .then(res => this.state.tags.forEach(tag => {
-        fetch('http://localhost:3000/artwork_tags', {
+        fetch('http://localhost:3000/api/v1/artwork_tags', {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ class NewArtPopup extends Component {
         })
       }))
       .then(res => (this.setState({nickname: '', img_url: '', selectedFile: false, tags: [], newArtwork: null})))
-      .then(res => fetch('http://localhost:3000/artworks')
+      .then(res => fetch('http://localhost:3000/api/v1/artworks')
       .then(r => r.json())
       .then(data => this.props.globalStateArtworks(data)))
       .then(res => (this.props.submitNewArtwork()))

@@ -16,10 +16,10 @@ class MapComponent extends Component {
   }
   
   componentDidMount() {
-    fetch('http://localhost:3000/artworks')
+    fetch('http://localhost:3000/api/v1/artworks')
     .then(r => r.json())
     .then(data => this.props.globalStateArtworks(data))
-    fetch('http://localhost:3000/tags')
+    fetch('http://localhost:3000/api/v1/tags')
     .then(r => r.json())
     .then(data => this.props.globalStateTags(data))
   }

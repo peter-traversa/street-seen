@@ -12,7 +12,7 @@ class ArtworkList extends Component {
 
   componentDidMount() {
     this.setState({filteredArtworks: this.props.allArtworks})
-    fetch('http://localhost:3000/tags')
+    fetch('http://localhost:3000/api/v1/tags')
       .then(res => res.json())
       .then(tags => this.setState({tagsWithArtworks: tags}))
   }
