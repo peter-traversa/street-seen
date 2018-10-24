@@ -96,6 +96,7 @@ class NewArtPopup extends Component {
       <Popup backgroundColor='black' minWidth='400'>
         {this.state.selectedFile ? <Image src={this.state.img_url} size='small' /> : <div className='dropzone' ><Dropzone accept='image/jpeg, image/png, image/gif' onChange={this.handleFileUpload} ><p>Try dropping a file here, or click to select a file to upload.<br/>Choose one image file.</p></Dropzone></div>}
         <Form onSubmit={this.handleFormSubmit}>
+          <h3>Artwork Name</h3>
           <Form.Input focus type='text' placeholder='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
           <h3>Tags</h3><br/>
           <Grid columns={2}>
