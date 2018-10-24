@@ -33,11 +33,13 @@
 
 .brick-background {
   margin-top: 14px;
-  height: 150%;
+  /* height: 150%; */
   background-image: url('./images/black-brick-wall-texture.jpg');
-  background-size: 150%%;
+  -webkit-background-size: cover;
   -webkit-text-fill-color: white;
   margin-bottom: 0px;
+  position: relative;
+  background-image: cover;
 }
 
 .concrete-background {
