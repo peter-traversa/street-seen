@@ -52,10 +52,10 @@ class ArtworkList extends Component {
         />
         {listArtworks.map((artwork, idx) => {
           return(
-            <Card key={idx} color='red' >
-              <Image src={`${artwork.img_url}`} alt={artwork.nickname} data-id={artwork.id} onClick={this.props.viewArtworkFromList} size='medium' />
-              <Card.Content>
-                <Card.Header >{artwork.nickname}</Card.Header>
+            <Card key={idx} data-id={artwork.id} onClick={this.props.viewArtworkFromList} color='red' >
+              <Image src={`${artwork.img_url}`} alt={artwork.nickname} data-id={artwork.id} size='medium' />
+              <Card.Content data-id={artwork.id}>
+                <Card.Header data-id={artwork.id} onClick={this.props.viewArtworkFromList} >{artwork.nickname}</Card.Header>
               </Card.Content>
             </Card>
           )

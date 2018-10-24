@@ -17,7 +17,7 @@ class MapMenu extends Component {
       <div className='concrete-background' >
         <Grid columns={3}>
           <Grid.Column>
-            <h2>Username: &nbsp;{this.props.currentUser ? `${this.props.currentUser.name}` :  'Please log in.'}</h2>
+            <h2>{this.props.currentUser ? `Click on the map to add artwork.` :  'Login to add your photos.'}</h2>
           </Grid.Column>
           <Grid.Column>
             <div className='street-seen-logo'><p align='center'>Street Seen</p></div>

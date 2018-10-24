@@ -73,3 +73,7 @@
 .existing-art-popup-image {
   margin: auto;
 }
+
+.dropzone {
+  margin: 25px;
+}
