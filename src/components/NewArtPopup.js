@@ -72,14 +72,16 @@ class NewArtPopup extends Component {
           body: JSON.stringify({
             artwork_id: this.state.newArtwork.id,
             tag_id: tag
-          })
+          })          
         })
+        .then(res => console.log(res))
       }))
       .then(res => (this.setState({nickname: '', img_url: '', selectedFile: false, tags: [], newArtwork: null})))
-      .then(res => fetch('http://localhost:3000/api/v1/artworks')
+      .then(res => fetch('http://localhost:3000/api/v1/artworks'))
       .then(r => r.json())
-      .then(data => this.props.globalStateArtworks(data)))
+      .then(data => this.props.globalStateArtworks(data))
       .then(res => (this.props.submitNewArtwork()))
+    
   }
   
   handleInputChange = (event) => {
@@ -95,7 +97,7 @@ class NewArtPopup extends Component {
       <Popup backgroundColor='black' minWidth='400'>
         {this.state.selectedFile ? <Image src={this.state.img_url} size='small' /> : <Dropzone accept='image/jpeg, image/png, image/gif' onChange={this.handleFileUpload} ><p>Try dropping a file here, or click to select a file to upload.<br/>Choose one image file.</p></Dropzone>}
         <Form onSubmit={this.handleFormSubmit}>
-          <Form.Input type='text' label='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
+          <Form.Input color='red' type='text' label='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
           <h3>Tags</h3><br/>
           <Grid columns={2}>
             {this.props.allTags.map(tag => {return <Form.Checkbox type='checkbox' key={tag.id} value={tag.id} label={tag.name} />})}

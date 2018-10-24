@@ -20,7 +20,7 @@ class LoginModal extends Component {
 
   handleCreateUserResponse = (data) => {
     if (data.error) {
-      this.setState({createUsername: '', createUserEmail: '', createUserPassword: '', badUserCreate: true});
+      this.setState({createUsername: '', createUserEmail: '', createUserPassword: '', loginUsername: '', loginPassword: '', badUserCreate: true});
     } else {
       this.props.changeUserId(data.user);
       this.props.handleModalClose();
@@ -28,11 +28,12 @@ class LoginModal extends Component {
   }
 
   handleLoginResponse = (data) => {
-    if (data.error) {
-      this.setState({loginUsername: '', loginPassword: '', badLogin: true})
-    } else {
+    console.log(data);
+    if (data.user) {
       this.props.changeUserId(data.user);
       this.props.handleModalClose();
+    } else {
+      this.setState({loginUsername: '', loginPassword: '', createUsername: '', createUserEmail: '', createUserPassword: '', badLogin: true})
     }
   }
 
