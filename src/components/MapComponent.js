@@ -39,6 +39,7 @@ class MapComponent extends Component {
     this.setState({center: [event.target.getCenter().lat, event.target.getCenter().lng]});
   }
 
+
   render() {
     return (
       <React.Fragment>

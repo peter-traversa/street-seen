@@ -54,6 +54,10 @@
   height: 850px;
 }
 
+.detail-page-image {
+  padding-bottom: 20px !important;
+}
+
 .street-seen-logo {
   font-family: 'Permanent Marker', cursive;
   font-size: 35px;
@@ -78,4 +82,8 @@
 
 .dropzone {
   margin: 25px;
+}
+
+#detail-page-image {
+  margin-bottom: 100px;
 }

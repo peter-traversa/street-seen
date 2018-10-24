@@ -15,7 +15,6 @@ class LoginForm extends Component {
   }
 
   handleLoginResponse = (data) => {
-    console.log(data);
     if (data.user) {
       this.props.changeUserId(data.user);
       this.props.handleModalClose();

@@ -74,7 +74,6 @@ class NewArtPopup extends Component {
             tag_id: tag
           })          
         })
-        .then(res => console.log(res))
       }))
       .then(res => (this.setState({nickname: '', img_url: '', selectedFile: false, tags: [], newArtwork: null})))
       .then(res => fetch('http://localhost:3000/api/v1/artworks'))
