@@ -67,17 +67,6 @@ class LoginModal extends Component {
     })
     .then(res => res.json())
     .then(data => this.handleLoginResponse(data))
-    // const loggedInUser = this.state.users.find(user => {
-    //   return user.name === this.state.loginUsername
-    // })
-    // console.log(loggedInUser)
-    // if (loggedInUser && loggedInUser.password === this.state.loginPassword) {
-    //   this.props.changeUserId(loggedInUser);
-    //   this.setState({loginUsername: '', loginPassword: '', badLogin: false, badUserCreate: false})
-    //   this.props.handleModalClose();
-    // } else {
-    //   this.setState({loginUsername: '', loginPassword: '', badLogin: true})
-    // }
   }
 
   handleLoginUsernameChange = (event) => {
