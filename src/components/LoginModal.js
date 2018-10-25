@@ -29,7 +29,7 @@ class LoginModal extends Component {
       >
         <Modal.Content>
           {this.state.showUserLogin ? <LoginForm /> : <CreateUser />}
-          {this.state.showUserLogin ? <p onClick={this.createAccount}>Click to Create Account</p> : <p onClick={this.loginForm}>Click to Return to Login Form</p>}
+          {this.state.showUserLogin ? <p onClick={this.createAccount}>Click to Create Account</p> : <p onClick={this.loginForm}>Click to Login to Existing Account</p>}
         </Modal.Content>
       </Modal>
     )
