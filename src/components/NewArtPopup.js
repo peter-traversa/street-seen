@@ -94,7 +94,7 @@ class NewArtPopup extends Component {
   render() {
     return (
       <Popup backgroundColor='black' minWidth='400'>
-        {this.state.selectedFile ? <Image src={this.state.img_url} size='small' /> : <div className='dropzone' ><Dropzone accept='image/jpeg, image/png, image/gif' onChange={this.handleFileUpload} ><p>Try dropping a file here, or click to select a file to upload.<br/>Choose one image file.</p></Dropzone></div>}
+        {this.state.selectedFile ? <div className='dropzone' ><Image src={this.state.img_url} size='small' /></div> : <div className='dropzone' ><Dropzone accept='image/jpeg, image/png, image/gif' onChange={this.handleFileUpload} ><p>Try dropping a file here, or click to select a file to upload.<br/>Choose one image file.</p></Dropzone></div>}
         <Form onSubmit={this.handleFormSubmit}>
           <h3>Artwork Name</h3>
           <Form.Input focus type='text' placeholder='Artwork Name' value={this.state.nickname} onChange={this.handleInputChange} />
@@ -103,7 +103,7 @@ class NewArtPopup extends Component {
             {this.props.allTags.map(tag => {return <Form.Checkbox type='checkbox' key={tag.id} value={tag.id} label={tag.name} />})}
           </Grid>
             <br/><br/>
-          <Form.Button color='red' content='Submit' />
+          {this.state.selectedFile ? <Form.Button color='red' content='Submit' /> : null}
         </Form>
       </Popup>
     )

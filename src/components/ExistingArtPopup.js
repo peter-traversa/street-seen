@@ -6,7 +6,7 @@ const ExistingArtPopup = (props) => {
   return(
     <div className='existing-art-popup'>
       <Image size='medium' onClick={(e) => props.viewDetailPage(props.artwork, e)} src={props.artwork.img_url} alt={props.nickname} />
-      <h3 onClick={props.viewDetailPage} >{props.artwork.nickname}</h3>
+      <h3 onClick={(e) => props.viewDetailPage(props.artwork, e)} >{props.artwork.nickname}</h3>
     </div>
   )
 }
