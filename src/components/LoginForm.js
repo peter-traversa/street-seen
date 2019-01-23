@@ -37,7 +37,7 @@ class LoginForm extends Component {
     })
     .then(res => res.json())
     .then(data => this.handleLoginResponse(data))
-  }
+  };
 
   handleLoginUsernameChange = (event) => {
     this.setState({loginUsername: event.target.value})
@@ -56,7 +56,7 @@ class LoginForm extends Component {
         <Header icon='map outline' color='red' content='Login' />
         <h3>Login to add some street art or click the 'x' to view only.</h3>
         <Form onSubmit={this.handleLoginSubmit}>
-          <Input focus placeholder='Username' value={this.state.loginUsername} onChange={this.handleLoginUsernameChange} /><br/>
+          <Input focus placeholder='Username' value={this.state.loginUsername} onChange={this.handleLoginUsernameChange} margin={'2px'} /><br/>
           <Input focus type='password' placeholder='Password' value={this.state.loginPassword} onChange={this.handleLoginPasswordChange} /><br/>
           <Button inverted color='red' content='Login'/>
         </Form>
