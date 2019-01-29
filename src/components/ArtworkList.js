@@ -8,13 +8,13 @@ class ArtworkList extends Component {
     filteredArtworks: [],
     searchTagId: '',
     tagsWithArtworks: [],
-  }
+  };
 
   componentDidMount() {
-    this.setState({filteredArtworks: this.props.allArtworks})
+    this.setState({filteredArtworks: this.props.allArtworks});
     fetch('http://localhost:3000/api/v1/tags')
       .then(res => res.json())
-      .then(tags => this.setState({tagsWithArtworks: tags}))
+      .then(tags => this.setState({tagsWithArtworks: tags}));
   }
 
   handleDropdownSelect = (event, { value }) => {
@@ -27,19 +27,13 @@ class ArtworkList extends Component {
   }
 
   render() {
-
     const { value } = this.state;
-
     const firstSelection = [{key: 0, text: 'View All', value: null}]
-
     const mapSelection = this.props.allTags.map(tag => {
       return {key: tag.id, text: tag.name, value: tag.id};
     })
-
     const allSelection = firstSelection.concat(mapSelection)
-
     const listArtworks = this.state.filteredArtworks;
-
     return (
       <div className='all-artwork-dropdown'>
         <Dropdown 
