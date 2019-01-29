@@ -21,7 +21,7 @@ class LoginForm extends Component {
     } else {
       this.setState({loginUsername: '', loginPassword: '', badLogin: true})
     }
-  }
+  };
 
   handleLoginSubmit = (event) => {
     fetch('http://localhost:3000/api/v1/login', {
@@ -41,13 +41,11 @@ class LoginForm extends Component {
 
   handleLoginUsernameChange = (event) => {
     this.setState({loginUsername: event.target.value})
-  }
+  };
 
   handleLoginPasswordChange = (event) => {
     this.setState({loginPassword: event.target.value})
-  }
-
-  handleCreate
+  };
 
   render() {
     return (
