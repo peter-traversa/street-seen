@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Modal } from 'semantic-ui-react'
-import LoginForm from './LoginForm';
-import CreateUser from './CreateUser'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Modal } from 'semantic-ui-react';
+import LoginForm from '../components/LoginForm';
+import CreateUser from '../components/CreateUser';
 
 class LoginModal extends Component {
 

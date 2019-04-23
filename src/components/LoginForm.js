@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Form, Input, Button, Header } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Form, Input, Button, Header } from 'semantic-ui-react';
 
 class LoginForm extends Component {
   state = { 
@@ -23,7 +23,7 @@ class LoginForm extends Component {
     }
   };
 
-  handleLoginSubmit = (event) => {
+  handleLoginSubmit = () => {
     fetch('http://localhost:3000/api/v1/login', {
       headers: {
         'Accept': 'application/json',
@@ -40,11 +40,11 @@ class LoginForm extends Component {
   };
 
   handleLoginUsernameChange = (event) => {
-    this.setState({loginUsername: event.target.value})
+    this.setState({loginUsername: event.target.value});
   };
 
   handleLoginPasswordChange = (event) => {
-    this.setState({loginPassword: event.target.value})
+    this.setState({loginPassword: event.target.value});
   };
 
   render() {

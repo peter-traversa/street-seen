@@ -9,7 +9,7 @@ class CreateUser extends Component {
     createUserPassword: '',
     users: [],
     badUserCreate: false,
-  }
+  };
 
   componentWillUnmount() {
     this.setState({badUserCreate: false})

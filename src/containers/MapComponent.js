@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
-import { iconExistingArt, iconNewArt } from './Icon';
-import ExistingArtPopup from './ExistingArtPopup';
-import NewArtPopup from './NewArtPopup';
+import { iconExistingArt, iconNewArt } from '../components/Icon';
+import ExistingArtPopup from '../components/ExistingArtPopup';
+import NewArtPopup from '../components/NewArtPopup';
 import { connect } from 'react-redux';
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';

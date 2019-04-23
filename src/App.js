@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MapComponent from './components/MapComponent';
-import LoginModal from './components/LoginModal';
+import MapComponent from './containers/MapComponent';
+import LoginModal from './containers/LoginModal';
 import DetailPage from './containers/DetailPage';
 import MapMenu from './components/MapMenu'
 
